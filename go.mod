@@ -5,7 +5,7 @@ go 1.24.0
 replace github.com/doutorfinancas/go-mad v0.0.0-20240205120830-463c1e9760f0 => github.com/shyim/go-mad v0.0.0-20250401132841-d19165fb2107
 
 require (
-	dario.cat/mergo v1.0.1
+	dario.cat/mergo v1.0.2
 	github.com/NYTimes/gziphandler v1.1.1
 	github.com/bep/godartsass/v2 v2.5.0
 	github.com/caarlos0/env/v9 v9.0.0
@@ -13,7 +13,7 @@ require (
 	github.com/charmbracelet/huh/spinner v0.0.0-20250313180200-29e1d4556a22
 	github.com/charmbracelet/lipgloss v1.1.0
 	github.com/doutorfinancas/go-mad v0.0.0-20240205120830-463c1e9760f0
-	github.com/evanw/esbuild v0.25.3
+	github.com/evanw/esbuild v0.25.4
 	github.com/friendsofshopware/go-shopware-admin-api-sdk v0.0.0-20231210091330-92f38f1ae77c
 	github.com/go-sql-driver/mysql v1.9.2
 	github.com/google/uuid v1.6.0
@@ -32,7 +32,7 @@ require (
 	github.com/wk8/go-ordered-map/v2 v2.1.8
 	github.com/yuin/goldmark v1.7.11
 	go.uber.org/zap v1.27.0
-	golang.org/x/text v0.24.0
+	golang.org/x/text v0.25.0
 	gopkg.in/yaml.v3 v3.0.1
 )
 
@@ -82,9 +82,9 @@ require (
 	github.com/tidwall/pretty v1.2.1 // indirect
 	github.com/tidwall/sjson v1.2.5 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
-	golang.org/x/net v0.39.0
+	golang.org/x/net v0.40.0
 	golang.org/x/oauth2 v0.24.0 // indirect
-	golang.org/x/sync v0.13.0 // indirect
-	golang.org/x/sys v0.32.0 // indirect
+	golang.org/x/sync v0.14.0 // indirect
+	golang.org/x/sys v0.33.0 // indirect
 	google.golang.org/protobuf v1.35.2 // indirect
 )
