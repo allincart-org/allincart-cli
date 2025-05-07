@@ -1,0 +1,22 @@
+{
+    "go.formatTool": "gofmt",
+    "go.useLanguageServer": true,
+    "gopls": {
+        "formatting.gofumpt": true
+    },
+    "go.diagnostic.vulncheck": "Imports",
+    "go.inlayHints.functionTypeParameters": true,
+    "go.inlayHints.assignVariableTypes": true,
+    "go.inlayHints.compositeLiteralFields": true,
+    "go.inlayHints.constantValues": true,
+    "files.exclude": {
+        ".devenv": true,
+        ".direnv": true,
+        ".idea": true
+    },
+    "go.toolsManagement.autoUpdate": false,
+    "go.toolsManagement.checkForUpdates": "off",
+    "yaml.schemas": {
+        "https://raw.githubusercontent.com/shopware/shopware-cli/main/extension/shopware-extension-schema.json": "file:///workspaces/shopware-cli/.shopware-extension.yml"
+    }
+}

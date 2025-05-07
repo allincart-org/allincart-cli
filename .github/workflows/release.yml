@@ -1,0 +1,110 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - '*'
+
+permissions:
+  contents: write
+  id-token: write
+  packages: write
+
+env:
+  GOTOOLCHAIN: local
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@0634a2670c59f64b4a01f0f96f84700a4088b9f0 # ratchet:step-security/harden-runner@v2.12.0
+        with:
+          egress-policy: audit
+
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # ratchet:actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Go
+        uses: actions/setup-go@0aaccfd150d50ccaeb58ebd88d36e91967a5f35b # ratchet:actions/setup-go@v5
+        with:
+          go-version: '1.24'
+          cache: true
+          check-latest: true
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@7b9fe29d91f67b47e423cea399a44b8a20c9b324 # ratchet:DeterminateSystems/nix-installer-action@main
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@b5ca514318bd6ebac0fb2aedd5d36ec1b5c232a2 # ratchet:docker/setup-buildx-action@v3
+
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@3454372f43399081ed03b604cb2d021dabca52bb # ratchet:sigstore/cosign-installer@v3
+
+      - name: Install Syft
+        uses: anchore/sbom-action/download-syft@9f7302141466aa6482940f15371237e9d9f4c34a # ratchet:anchore/sbom-action/download-syft@v0.19.0
+
+      - name: Gather Frosh Homebrew Token
+        uses: octo-sts/action@6177b4481c00308b3839969c3eca88c96a91775f # ratchet:octo-sts/action@v1.0.0
+        id: sts-homebrew
+        with:
+          scope: FriendsOfShopware/homebrew-tap
+          identity: release
+
+      - name: Gather Homebrew Token
+        uses: octo-sts/action@6177b4481c00308b3839969c3eca88c96a91775f # ratchet:octo-sts/action@v1.0.0
+        id: sts-shopware
+        with:
+          scope: shopware/homebrew-tap
+          identity: swcli
+
+      - name: Gather NUR Token
+        uses: octo-sts/action@6177b4481c00308b3839969c3eca88c96a91775f # ratchet:octo-sts/action@v1.0.0
+        id: sts-nur
+        with:
+          scope: FriendsOfShopware/nur-packages
+          identity: release
+
+      - name: Login into Docker Hub
+        run: echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
+
+      - name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@9c156ee8a17a598857849441385a2041ef570552 # ratchet:goreleaser/goreleaser-action@v6
+        with:
+          distribution: goreleaser-pro
+          version: '~> v2'
+          args: release --clean
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HOMEBREW_TAP_GITHUB_TOKEN: ${{ steps.sts-homebrew.outputs.token }}
+          HOMEBREW_TAP_GITHUB_TOKEN_SHOPWARE: ${{ steps.sts-shopware.outputs.token }}
+          NUR_GITHUB_TOKEN: ${{ steps.sts-nur.outputs.token }}
+          AUR_KEY: ${{ secrets.AUR_KEY }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GORELEASER_KEY: ${{ secrets.GORELEASER_KEY }}
+
+      - name: Install Cloudsmith CLI
+        run: pip install --upgrade cloudsmith-cli
+
+      - name: Cloudsmith Uploads
+        env:
+          CLOUDSMITH_API_KEY: ${{ secrets.CLOUDSMITH_API_KEY }}
+        run: |
+          for filename in dist/*.deb; do
+              cloudsmith push deb friendsofshopware/stable/any-distro/any-version $filename
+          done
+          for filename in dist/*.rpm; do
+              cloudsmith push rpm friendsofshopware/stable/any-distro/any-version $filename
+          done
+          for filename in dist/*.apk; do
+              cloudsmith push alpine friendsofshopware/stable/alpine/any-version $filename
+          done
