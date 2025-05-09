@@ -9,7 +9,7 @@ before:
 builds:
   - env:
       - CGO_ENABLED=0
-    binary: shopware-cli
+    binary: allincart-cli
     ldflags: -s -w -X 'github.com/allincart/allincart-cli/cmd.version={{ .Version }}'
     flags:
       - -trimpath
@@ -41,8 +41,8 @@ archives:
 
 release:
   github:
-    owner: shopware
-    name: shopware-cli
+    owner: allincart-org
+    name: allincart-cli
 
 dockers:
   # AMD64
@@ -50,7 +50,7 @@ dockers:
     goos: linux
     goarch: amd64
     image_templates:
-      - "shopware/shopware-cli:{{ .Tag }}-php-8.4-amd64"
+      - "allincart-org/allincart-cli:{{ .Tag }}-php-8.4-amd64"
     build_flag_templates:
       - "--build-arg=PHP_VERSION=8.4"
       - "--platform=linux/amd64"
@@ -58,7 +58,7 @@ dockers:
     goos: linux
     goarch: amd64
     image_templates:
-      - "shopware/shopware-cli:{{ .Tag }}-php-8.3-amd64"
+      - "allincart-org/allincart-cli:{{ .Tag }}-php-8.3-amd64"
     build_flag_templates:
       - "--build-arg=PHP_VERSION=8.3"
       - "--platform=linux/amd64"
@@ -66,7 +66,7 @@ dockers:
     goos: linux
     goarch: amd64
     image_templates:
-      - "shopware/shopware-cli:{{ .Tag }}-php-8.2-amd64"
+      - "allincart-org/allincart-cli:{{ .Tag }}-php-8.2-amd64"
     build_flag_templates:
       - "--build-arg=PHP_VERSION=8.2"
       - "--platform=linux/amd64"
@@ -74,7 +74,7 @@ dockers:
     goos: linux
     goarch: amd64
     image_templates:
-      - "shopware/shopware-cli:{{ .Tag }}-php-8.1-amd64"
+      - "allincart-org/allincart-cli:{{ .Tag }}-php-8.1-amd64"
     build_flag_templates:
       - "--build-arg=PHP_VERSION=8.1"
       - "--platform=linux/amd64"
@@ -84,7 +84,7 @@ dockers:
     goos: linux
     goarch: arm64
     image_templates:
-      - "shopware/shopware-cli:{{ .Tag }}-php-8.4-arm64"
+      - "allincart-org/allincart-cli:{{ .Tag }}-php-8.4-arm64"
     build_flag_templates:
       - "--build-arg=PHP_VERSION=8.4"
       - "--platform=linux/arm64"
@@ -92,7 +92,7 @@ dockers:
     goos: linux
     goarch: arm64
     image_templates:
-      - "shopware/shopware-cli:{{ .Tag }}-php-8.3-arm64"
+      - "allincart-org/allincart-cli:{{ .Tag }}-php-8.3-arm64"
     build_flag_templates:
       - "--build-arg=PHP_VERSION=8.3"
       - "--platform=linux/arm64"
@@ -100,7 +100,7 @@ dockers:
     goos: linux
     goarch: arm64
     image_templates:
-      - "shopware/shopware-cli:{{ .Tag }}-php-8.2-arm64"
+      - "allincart-org/allincart-cli:{{ .Tag }}-php-8.2-arm64"
     build_flag_templates:
       - "--build-arg=PHP_VERSION=8.2"
       - "--platform=linux/arm64"
@@ -108,7 +108,7 @@ dockers:
     goos: linux
     goarch: arm64
     image_templates:
-      - "shopware/shopware-cli:{{ .Tag }}-php-8.1-arm64"
+      - "allincart-org/allincart-cli:{{ .Tag }}-php-8.1-arm64"
     build_flag_templates:
       - "--build-arg=PHP_VERSION=8.1"
       - "--platform=linux/arm64"
@@ -118,7 +118,7 @@ dockers:
     goarch: amd64
     dockerfile: Dockerfile.bin
     image_templates:
-      - "shopware/shopware-cli:bin-{{ .Tag }}-amd64"
+      - "allincart-org/allincart-cli:bin-{{ .Tag }}-amd64"
     build_flag_templates:
       - "--platform=linux/amd64"
 
@@ -127,66 +127,66 @@ dockers:
     goarch: arm64
     dockerfile: Dockerfile.bin
     image_templates:
-      - "shopware/shopware-cli:bin-{{ .Tag }}-arm64"
+      - "allincart-org/allincart-cli:bin-{{ .Tag }}-arm64"
     build_flag_templates:
       - "--platform=linux/arm64"
 
 docker_manifests:
   # Shopware Docker Hub
-  - name_template: shopware/shopware-cli:latest
+  - name_template: allincart-org/allincart-cli:latest
     image_templates:
-      - "shopware/shopware-cli:{{ .Tag }}-php-8.3-amd64"
-      - "shopware/shopware-cli:{{ .Tag }}-php-8.3-arm64"
+      - "allincart-org/allincart-cli:{{ .Tag }}-php-8.3-amd64"
+      - "allincart-org/allincart-cli:{{ .Tag }}-php-8.3-arm64"
 
-  - name_template: shopware/shopware-cli:latest-php-8.4
+  - name_template: allincart-org/allincart-cli:latest-php-8.4
     image_templates:
-      - "shopware/shopware-cli:{{ .Tag }}-php-8.4-amd64"
-      - "shopware/shopware-cli:{{ .Tag }}-php-8.4-arm64"
+      - "allincart-org/allincart-cli:{{ .Tag }}-php-8.4-amd64"
+      - "allincart-org/allincart-cli:{{ .Tag }}-php-8.4-arm64"
 
-  - name_template: shopware/shopware-cli:latest-php-8.3
+  - name_template: allincart-org/allincart-cli:latest-php-8.3
     image_templates:
-      - "shopware/shopware-cli:{{ .Tag }}-php-8.3-amd64"
-      - "shopware/shopware-cli:{{ .Tag }}-php-8.3-arm64"
+      - "allincart-org/allincart-cli:{{ .Tag }}-php-8.3-amd64"
+      - "allincart-org/allincart-cli:{{ .Tag }}-php-8.3-arm64"
 
-  - name_template: shopware/shopware-cli:latest-php-8.2
+  - name_template: allincart-org/allincart-cli:latest-php-8.2
     image_templates:
-      - "shopware/shopware-cli:{{ .Tag }}-php-8.2-amd64"
-      - "shopware/shopware-cli:{{ .Tag }}-php-8.2-arm64"
+      - "allincart-org/allincart-cli:{{ .Tag }}-php-8.2-amd64"
+      - "allincart-org/allincart-cli:{{ .Tag }}-php-8.2-arm64"
 
-  - name_template: shopware/shopware-cli:latest-php-8.1
+  - name_template: allincart-org/allincart-cli:latest-php-8.1
     image_templates:
-      - "shopware/shopware-cli:{{ .Tag }}-php-8.1-amd64"
-      - "shopware/shopware-cli:{{ .Tag }}-php-8.1-arm64"
+      - "allincart-org/allincart-cli:{{ .Tag }}-php-8.1-amd64"
+      - "allincart-org/allincart-cli:{{ .Tag }}-php-8.1-arm64"
 
-  - name_template: shopware/shopware-cli:{{ .Tag }}
+  - name_template: allincart-org/allincart-cli:{{ .Tag }}
     image_templates:
-      - "shopware/shopware-cli:{{ .Tag }}-php-8.3-amd64"
-      - "shopware/shopware-cli:{{ .Tag }}-php-8.3-arm64"
+      - "allincart-org/allincart-cli:{{ .Tag }}-php-8.3-amd64"
+      - "allincart-org/allincart-cli:{{ .Tag }}-php-8.3-arm64"
 
-  - name_template: shopware/shopware-cli:{{ .Tag }}-php-8.3
+  - name_template: allincart-org/allincart-cli:{{ .Tag }}-php-8.3
     image_templates:
-      - "shopware/shopware-cli:{{ .Tag }}-php-8.3-amd64"
-      - "shopware/shopware-cli:{{ .Tag }}-php-8.3-arm64"
+      - "allincart-org/allincart-cli:{{ .Tag }}-php-8.3-amd64"
+      - "allincart-org/allincart-cli:{{ .Tag }}-php-8.3-arm64"
 
-  - name_template: shopware/shopware-cli:{{ .Tag }}-php-8.2
+  - name_template: allincart-org/allincart-cli:{{ .Tag }}-php-8.2
     image_templates:
-      - "shopware/shopware-cli:{{ .Tag }}-php-8.2-amd64"
-      - "shopware/shopware-cli:{{ .Tag }}-php-8.2-arm64"
+      - "allincart-org/allincart-cli:{{ .Tag }}-php-8.2-amd64"
+      - "allincart-org/allincart-cli:{{ .Tag }}-php-8.2-arm64"
 
-  - name_template: shopware/shopware-cli:{{ .Tag }}-php-8.1
+  - name_template: allincart-org/allincart-cli:{{ .Tag }}-php-8.1
     image_templates:
-      - "shopware/shopware-cli:{{ .Tag }}-php-8.1-amd64"
-      - "shopware/shopware-cli:{{ .Tag }}-php-8.1-arm64"
+      - "allincart-org/allincart-cli:{{ .Tag }}-php-8.1-amd64"
+      - "allincart-org/allincart-cli:{{ .Tag }}-php-8.1-arm64"
 
-  - name_template: shopware/shopware-cli:bin-{{ .Tag }}
+  - name_template: allincart-org/allincart-cli:bin-{{ .Tag }}
     image_templates:
-      - "shopware/shopware-cli:bin-{{ .Tag }}-amd64"
-      - "shopware/shopware-cli:bin-{{ .Tag }}-arm64"
+      - "allincart-org/allincart-cli:bin-{{ .Tag }}-amd64"
+      - "allincart-org/allincart-cli:bin-{{ .Tag }}-arm64"
 
-  - name_template: shopware/shopware-cli:bin
+  - name_template: allincart-org/allincart-cli:bin
     image_templates:
-      - "shopware/shopware-cli:bin-{{ .Tag }}-amd64"
-      - "shopware/shopware-cli:bin-{{ .Tag }}-arm64"
+      - "allincart-org/allincart-cli:bin-{{ .Tag }}-amd64"
+      - "allincart-org/allincart-cli:bin-{{ .Tag }}-arm64"
 
 sboms:
   - artifacts: archive
@@ -228,35 +228,35 @@ changelog:
       - '^Merge pull request:'
 
 aurs:
-  - homepage: https://developer.shopware.com/
-    description: A cli which contains handy helpful commands for daily Shopware tasks
+  - homepage: https://developer.allincart.net/
+    description: A cli which contains handy helpful commands for daily Allincart tasks
     license: MIT
     maintainers:
-      - "Soner Sayakci <s.sayakci@shopware.com>"
+      - "Soner Sayakci <s.sayakci@allincart.com>"
       - "Max <max@swk-web.com>"
     private_key: '{{ .Env.AUR_KEY }}'
     commit_author:
-      name: "Shopware Bot"
-      email: github@shopware.com
-    git_url: 'ssh://aur@aur.archlinux.org/shopware-cli-bin.git'
+      name: "Allincart Bot"
+      email: github@allincart.com
+    git_url: 'ssh://aur@aur.archlinux.org/allincart-cli-bin.git'
     depends:
       - "git"
     package: |-
-      install -Dm755 "./shopware-cli" "${pkgdir}/usr/bin/shopware-cli"
+      install -Dm755 "./allincart-cli" "${pkgdir}/usr/bin/allincart-cli"
 
       # license
-      install -Dm644 "./LICENSE" "${pkgdir}/usr/share/licenses/shopware-cli/LICENSE"
+      install -Dm644 "./LICENSE" "${pkgdir}/usr/share/licenses/allincart-cli/LICENSE"
 
       # completions
       mkdir -p "${pkgdir}/usr/share/bash-completion/completions/"
       mkdir -p "${pkgdir}/usr/share/zsh/site-functions/"
       mkdir -p "${pkgdir}/usr/share/fish/vendor_completions.d/"
-      install -Dm644 "./completions/shopware-cli.bash" "${pkgdir}/usr/share/bash-completion/completions/shopware-cli"
-      install -Dm644 "./completions/shopware-cli.zsh" "${pkgdir}/usr/share/zsh/site-functions/_shopware-cli"
-      install -Dm644 "./completions/shopware-cli.fish" "${pkgdir}/usr/share/fish/vendor_completions.d/shopware-cli.fish"
+      install -Dm644 "./completions/allincart-cli.bash" "${pkgdir}/usr/share/bash-completion/completions/allincat-cli"
+      install -Dm644 "./completions/allincart-cli.zsh" "${pkgdir}/usr/share/zsh/site-functions/_allincat-cli"
+      install -Dm644 "./completions/allincart-cli.fish" "${pkgdir}/usr/share/fish/vendor_completions.d/allincat-cli.fish"
 
 nix:
-  - name: shopware-cli
+  - name: allincart-cli
     repository:
       owner: FriendsOfShopware
       name: nur-packages
@@ -264,31 +264,31 @@ nix:
       token: "{{ .Env.NUR_GITHUB_TOKEN }}"
     commit_author:
       name: "Shopware Bot"
-      email: github@shopware.com
+      email: github@allincart.com
     post_install: |
-      installShellCompletion --cmd shopware-cli \
-      --bash <($out/bin/shopware-cli completion bash) \
-      --zsh <($out/bin/shopware-cli completion zsh) \
-      --fish <($out/bin/shopware-cli completion fish)
+      installShellCompletion --cmd allincat-cli \
+      --bash <($out/bin/allincat-cli completion bash) \
+      --zsh <($out/bin/allincat-cli completion zsh) \
+      --fish <($out/bin/allincat-cli completion fish)
     homepage: "https://sw-cli.fos.gg"
     description: "Command line tool for Shopware 6"
     license: "mit"
 
 nfpms:
   -
-    package_name: shopware-cli
-    vendor: "shopware AG"
+    package_name: allincat-cli
+    vendor: "Allincart AG"
     homepage: https://github.com/allincart/allincart-cli/
-    maintainer: Soner Sayakci <s.sayakci@shopware.com>
+    maintainer: Soner Sayakci <s.sayakci@allincart.net>
     description: A cli which contains handy helpful commands for daily Shopware tasks
     license: MIT
     contents:
-      - src: ./completions/shopware-cli.bash
-        dst: /etc/bash_completion.d/shopware-cli
-      - src: ./completions/shopware-cli.fish
-        dst: /usr/share/fish/completions/shopware-cli.fish
-      - src: ./completions/shopware-cli.zsh
-        dst: /usr/local/share/zsh/site-functions/_shopware-cli
+      - src: ./completions/allincat-cli.bash
+        dst: /etc/bash_completion.d/allincat-cli
+      - src: ./completions/allincat-cli.fish
+        dst: /usr/share/fish/completions/allincat-cli.fish
+      - src: ./completions/allincat-cli.zsh
+        dst: /usr/local/share/zsh/site-functions/_allincat-cli
     formats:
       - apk
       - deb
@@ -303,12 +303,12 @@ brews:
       name: Frosh Automation
       email: ci@fos.gg
     goarm: "7"
-    homepage: https://friendsofshopware.com
+    homepage: https://allincart.net
     description: Shopware CLI helps Shopware developers manage extensions
     license: MIT
     directory: Formula
     test: |
-      system "#{bin}/shopware-cli --version"
+      system "#{bin}/allincat-cli --version"
     dependencies:
     - name: node-sass
     - name: git
@@ -316,24 +316,24 @@ brews:
     - name: node
       type: optional
     install: |-
-      bin.install "shopware-cli"
-      bash_completion.install "completions/shopware-cli.bash" => "_shopware-cli"
-      zsh_completion.install "completions/shopware-cli.zsh" => "_shopware-cli"
-      fish_completion.install "completions/shopware-cli.fish"
+      bin.install "allincat-cli"
+      bash_completion.install "completions/allincat-cli.bash" => "_allincat-cli"
+      zsh_completion.install "completions/allincat-cli.zsh" => "_allincat-cli"
+      fish_completion.install "completions/allincat-cli.fish"
   - repository:
-      owner: shopware
+      owner: allincart-org
       name: homebrew-tap
       token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN_SHOPWARE }}"
     commit_author:
       name: Frosh Automation
       email: ci@fos.gg
     goarm: "7"
-    homepage: https://shopware.com
+    homepage: https://allincart.net
     description: Shopware CLI helps Shopware developers manage extensions
     license: MIT
     directory: Formula
     test: |
-      system "#{bin}/shopware-cli --version"
+      system "#{bin}/allincat-cli --version"
     dependencies:
     - name: node-sass
     - name: git
@@ -341,19 +341,19 @@ brews:
     - name: node
       type: optional
     install: |-
-      bin.install "shopware-cli"
-      bash_completion.install "completions/shopware-cli.bash" => "_shopware-cli"
-      zsh_completion.install "completions/shopware-cli.zsh" => "_shopware-cli"
-      fish_completion.install "completions/shopware-cli.fish"
+      bin.install "allincat-cli"
+      bash_completion.install "completions/allincat-cli.bash" => "_allincat-cli"
+      zsh_completion.install "completions/allincat-cli.zsh" => "_allincat-cli"
+      fish_completion.install "completions/allincat-cli.fish"
 
 npms:
-  - name: "@shopware-ag/shopware-cli"
-    description: "Shopware CLI helps Shopware developers manage extensions"
+  - name: "@allincart-ag/allincat-cli"
+    description: "Allincart CLI helps Shopware developers manage extensions"
     license: MIT
-    homepage: https://developer.shopware.com/docs/products/cli/
+    homepage: https://developer.allincart.net/docs/products/cli/
     keywords:
       - cli
-      - shopware
+      - allincart
     repository: https://github.com/allincart/allincart-cli
     bugs: https://github.com/allincart/allincart-cli/issues
     access: public

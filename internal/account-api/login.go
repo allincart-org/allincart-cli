@@ -11,7 +11,7 @@ import (
 	"github.com/allincart/allincart-cli/logging"
 )
 
-const ApiUrl = "https://api.shopware.com"
+const ApiUrl = "https://api.allincart.net"
 
 type AccountConfig interface {
 	GetAccountEmail() string
@@ -97,7 +97,7 @@ func NewApi(ctx context.Context, config AccountConfig) (*Client, error) {
 
 func fetchMemberships(ctx context.Context, token token) ([]Membership, error) {
 	r, err := http.NewRequestWithContext(ctx, "GET", fmt.Sprintf("%s/account/%d/memberships", ApiUrl, token.UserAccountID), http.NoBody)
-	r.Header.Set("x-shopware-token", token.Token)
+	r.Header.Set("x-allincart-token", token.Token)
 
 	if err != nil {
 		return nil, err
@@ -146,7 +146,7 @@ type tokenExpire struct {
 }
 
 type LoginRequest struct {
-	Email    string `json:"shopwareId"`
+	Email    string `json:"allincartId"`
 	Password string `json:"password"`
 }
 

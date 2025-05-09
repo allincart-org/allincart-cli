@@ -6,7 +6,7 @@ import (
 
 var accountCompanyProducerCmd = &cobra.Command{
 	Use:   "producer",
-	Short: "Manage your Shopware manufacturer",
+	Short: "Manage your Allincart manufacturer",
 }
 
 func init() {

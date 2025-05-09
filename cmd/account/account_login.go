@@ -13,7 +13,7 @@ import (
 
 var loginCmd = &cobra.Command{
 	Use:   "login",
-	Short: "Login into your Shopware Account",
+	Short: "Login into your Allincart Account",
 	Long:  "",
 	RunE: func(cmd *cobra.Command, _ []string) error {
 		email := services.Conf.GetAccountEmail()

@@ -13,7 +13,7 @@ import (
 	"github.com/allincart/allincart-cli/logging"
 )
 
-var httpUserAgent = "shopware-cli/0.0.0"
+var httpUserAgent = "allincart-cli/0.0.0"
 
 func SetUserAgent(userAgent string) {
 	httpUserAgent = userAgent
@@ -34,7 +34,7 @@ func (c *Client) NewAuthenticatedRequest(ctx context.Context, method, path strin
 
 	r.Header.Set("content-type", "application/json")
 	r.Header.Set("accept", "application/json")
-	r.Header.Set("x-shopware-token", c.Token.Token)
+	r.Header.Set("x-allincart-token", c.Token.Token)
 	r.Header.Set("user-agent", httpUserAgent)
 
 	return r, nil
@@ -95,7 +95,7 @@ func (c *Client) isTokenValid() bool {
 	return expire.UTC().Sub(time.Now().UTC()).Seconds() > 60
 }
 
-const CacheFileName = "shopware-api-client-token.json"
+const CacheFileName = "allincart-api-client-token.json"
 
 func getApiTokenCacheFilePath() (string, error) {
 	cacheDir, err := os.UserCacheDir()
@@ -103,8 +103,8 @@ func getApiTokenCacheFilePath() (string, error) {
 		return "", err
 	}
 
-	shopwareCacheDir := filepath.Join(cacheDir, "shopware-cli")
-	return filepath.Join(shopwareCacheDir, CacheFileName), nil
+	allincartCacheDir := filepath.Join(cacheDir, "allincart-cli")
+	return filepath.Join(allincartCacheDir, CacheFileName), nil
 }
 
 func createApiFromTokenCache(ctx context.Context) (*Client, error) {

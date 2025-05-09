@@ -6,7 +6,7 @@ import (
 
 var accountCompanyProducerExtensionCmd = &cobra.Command{
 	Use:   "extension",
-	Short: "Manage your Shopware extensions",
+	Short: "Manage your Allincart extensions",
 }
 
 func init() {
