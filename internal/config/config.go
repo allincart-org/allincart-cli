@@ -3,7 +3,6 @@ package config
 import (
 	"fmt"
 	"os"
-	"strconv"
 	"sync"
 
 	"github.com/caarlos0/env/v9"
@@ -26,9 +25,9 @@ type configState struct {
 
 type configData struct {
 	Account struct {
-		Email    string `env:"SHOPWARE_CLI_ACCOUNT_EMAIL" yaml:"email"`
-		Password string `env:"SHOPWARE_CLI_ACCOUNT_PASSWORD" yaml:"password"`
-		Company  int    `env:"SHOPWARE_CLI_ACCOUNT_COMPANY" yaml:"company"`
+		Email      string `env:"ALLINCART_CLI_ACCOUNT_EMAIL" yaml:"email"`
+		Password   string `env:"ALLINCART_CLI_ACCOUNT_PASSWORD" yaml:"password"`
+		Membership string `env:"ALLINCART_CLI_ACCOUNT_MEMBERSHIP" yaml:"membership"`
 	} `yaml:"account"`
 }
 
@@ -58,7 +57,7 @@ func defaultConfig() *configData {
 	config := &configData{}
 	config.Account.Email = ""
 	config.Account.Password = ""
-	config.Account.Company = 0
+	config.Account.Membership = ""
 	return config
 }
 
@@ -77,7 +76,7 @@ func InitConfig(configPath string) error {
 			return err
 		}
 
-		state.cfgPath = fmt.Sprintf("%s/.shopware-cli.yml", configDir)
+		state.cfgPath = fmt.Sprintf("%s/.allincart-cli.yml", configDir)
 	}
 
 	err := env.Parse(state.inner)
@@ -159,10 +158,10 @@ func (Config) GetAccountPassword() string {
 	return state.inner.Account.Password
 }
 
-func (Config) GetAccountCompanyId() int {
+func (Config) GetMembershipId() string {
 	state.mu.RLock()
 	defer state.mu.RUnlock()
-	return state.inner.Account.Company
+	return state.inner.Account.Membership
 }
 
 func (Config) SetAccountEmail(email string) error {
@@ -187,14 +186,14 @@ func (Config) SetAccountPassword(password string) error {
 	return nil
 }
 
-func (Config) SetAccountCompanyId(id int) error {
+func (Config) SetMembershipId(id string) error {
 	state.mu.Lock()
 	defer state.mu.Unlock()
 	if state.loadedFromEnv {
-		return fmt.Errorf(environmentConfigErrorFormat, "account.company", strconv.Itoa(id))
+		return fmt.Errorf(environmentConfigErrorFormat, "account.membership", id)
 	}
 	state.modified = true
-	state.inner.Account.Company = id
+	state.inner.Account.Membership = id
 	return nil
 }
 

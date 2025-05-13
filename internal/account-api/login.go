@@ -77,7 +77,7 @@ func NewApi(ctx context.Context, config AccountConfig) (*Client, error) {
 	var activeMemberShip Membership
 
 	for _, membership := range memberships {
-		if membership.Company.Id == token.UserID {
+		if membership.Id == token.MembershipId {
 			activeMemberShip = membership
 		}
 	}
@@ -96,7 +96,7 @@ func NewApi(ctx context.Context, config AccountConfig) (*Client, error) {
 }
 
 func fetchMemberships(ctx context.Context, token token) ([]Membership, error) {
-	r, err := http.NewRequestWithContext(ctx, "GET", fmt.Sprintf("%s/account/%d/memberships", ApiUrl, token.UserAccountID), http.NoBody)
+	r, err := http.NewRequestWithContext(ctx, "GET", fmt.Sprintf("%s/account/memberships", ApiUrl), http.NoBody)
 	r.Header.Set("x-allincart-token", token.Token)
 
 	if err != nil {
@@ -134,8 +134,8 @@ func fetchMemberships(ctx context.Context, token token) ([]Membership, error) {
 type token struct {
 	Token         string      `json:"token"`
 	Expire        tokenExpire `json:"expire"`
-	UserAccountID int         `json:"userAccountId"`
-	UserID        int         `json:"userId"`
+	UserAccountID string      `json:"userAccountId"`
+	MembershipId  string      `json:"membershipId"`
 	LegacyLogin   bool        `json:"legacyLogin"`
 }
 
@@ -159,44 +159,13 @@ func (l LoginRequest) GetAccountPassword() string {
 }
 
 type Membership struct {
-	Id           int    `json:"id"`
-	CreationDate string `json:"creationDate"`
-	Active       bool   `json:"active"`
-	Member       struct {
-		Id           int         `json:"id"`
-		Email        string      `json:"email"`
-		AvatarUrl    interface{} `json:"avatarUrl"`
-		PersonalData struct {
-			Id         int `json:"id"`
-			Salutation struct {
-				Id          int    `json:"id"`
-				Name        string `json:"name"`
-				Description string `json:"description"`
-			} `json:"salutation"`
-			FirstName string `json:"firstName"`
-			LastName  string `json:"lastName"`
-			Locale    struct {
-				Id          int    `json:"id"`
-				Name        string `json:"name"`
-				Description string `json:"description"`
-			} `json:"locale"`
-		} `json:"personalData"`
-	} `json:"member"`
-	Company struct {
-		Id             int    `json:"id"`
-		Name           string `json:"name"`
-		CustomerNumber string `json:"customerNumber"`
-	} `json:"company"`
+	Id   string `json:"id"`
+	Shop struct {
+		Id   string `json:"id"`
+		Name string `json:"name"`
+	} `json:"shop"`
 	Roles []struct {
-		Id           int         `json:"id"`
-		Name         string      `json:"name"`
-		CreationDate string      `json:"creationDate"`
-		Company      interface{} `json:"company"`
-		Permissions  []struct {
-			Id      int    `json:"id"`
-			Context string `json:"context"`
-			Name    string `json:"name"`
-		} `json:"permissions"`
+		Name string `json:"name"`
 	} `json:"roles"`
 }
 
@@ -212,19 +181,19 @@ func (m Membership) GetRoles() []string {
 
 type changeMembershipRequest struct {
 	SelectedMembership struct {
-		Id int `json:"id"`
+		Id string `json:"id"`
 	} `json:"membership"`
 }
 
 func (c *Client) ChangeActiveMembership(ctx context.Context, selected Membership) error {
 	s, err := json.Marshal(changeMembershipRequest{SelectedMembership: struct {
-		Id int `json:"id"`
-	}(struct{ Id int }{Id: selected.Id})})
+		Id string `json:"id"`
+	}(struct{ Id string }{Id: selected.Id})})
 	if err != nil {
 		return fmt.Errorf("ChangeActiveMembership: %v", err)
 	}
 
-	r, err := c.NewAuthenticatedRequest(ctx, "POST", fmt.Sprintf("%s/account/%d/memberships/change", ApiUrl, c.GetUserID()), bytes.NewBuffer(s))
+	r, err := c.NewAuthenticatedRequest(ctx, "POST", fmt.Sprintf("%s/account/memberships/change", ApiUrl), bytes.NewBuffer(s))
 	if err != nil {
 		return err
 	}
@@ -243,7 +212,7 @@ func (c *Client) ChangeActiveMembership(ctx context.Context, selected Membership
 
 	if resp.StatusCode == 200 {
 		c.ActiveMembership = selected
-		c.Token.UserID = selected.Company.Id
+		c.Token.MembershipId = selected.Shop.Id
 
 		if err := saveApiTokenToTokenCache(c); err != nil {
 			return err

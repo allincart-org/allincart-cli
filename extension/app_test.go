@@ -17,8 +17,8 @@ const testAppManifest = `<?xml version="1.0" encoding="UTF-8"?>
 		<label lang="de-DE">Name</label>
 		<description>A description</description>
 		<description lang="de-DE">Eine Beschreibung</description>
-		<author>Your Company Ltd.</author>
-		<copyright>(c) by Your Company Ltd.</copyright>
+		<author>Your Membership Ltd.</author>
+		<copyright>(c) by Your Membership Ltd.</copyright>
 		<version>1.0.0</version>
 		<license>MIT</license>
 	</meta>
@@ -32,8 +32,8 @@ const testAppManifestMissingLicense = `<?xml version="1.0" encoding="UTF-8"?>
 		<label lang="de-DE">Name</label>
 		<description>A description</description>
 		<description lang="de-DE">Eine Beschreibung</description>
-		<author>Your Company Ltd.</author>
-		<copyright>(c) by Your Company Ltd.</copyright>
+		<author>Your Membership Ltd.</author>
+		<copyright>(c) by Your Membership Ltd.</copyright>
 		<version>1.0.0</version>
 	</meta>
 </manifest>`
@@ -46,7 +46,7 @@ const testAppManifestMissingCopyright = `<?xml version="1.0" encoding="UTF-8"?>
 		<label lang="de-DE">Name</label>
 		<description>A description</description>
 		<description lang="de-DE">Eine Beschreibung</description>
-		<author>Your Company Ltd.</author>
+		<author>Your Membership Ltd.</author>
 		<version>1.0.0</version>
 		<license>MIT</license>
 	</meta>
@@ -60,7 +60,7 @@ const testAppManifestMissingAuthor = `<?xml version="1.0" encoding="UTF-8"?>
 		<label lang="de-DE">Name</label>
 		<description>A description</description>
 		<description lang="de-DE">Eine Beschreibung</description>
-		<copyright>(c) by Your Company Ltd.</copyright>
+		<copyright>(c) by Your Membership Ltd.</copyright>
 		<version>1.0.0</version>
 		<license>MIT</license>
 	</meta>
@@ -75,8 +75,8 @@ const testAppManifestCompatibility = `<?xml version="1.0" encoding="UTF-8"?>
 		<description>A description</description>
 		<description lang="de-DE">Eine Beschreibung</description>
 		<compatibility>~6.5.0</compatibility>
-		<author>Your Company Ltd.</author>
-		<copyright>(c) by Your Company Ltd.</copyright>
+		<author>Your Membership Ltd.</author>
+		<copyright>(c) by Your Membership Ltd.</copyright>
 		<version>1.0.0</version>
 		<license>MIT</license>
 	</meta>
@@ -90,8 +90,8 @@ const testAppManifestIcon = `<?xml version="1.0" encoding="UTF-8"?>
 		<label lang="de-DE">Name</label>
 		<description>A description</description>
 		<description lang="de-DE">Eine Beschreibung</description>
-		<author>Your Company Ltd.</author>
-		<copyright>(c) by Your Company Ltd.</copyright>
+		<author>Your Membership Ltd.</author>
+		<copyright>(c) by Your Membership Ltd.</copyright>
 		<version>1.0.0</version>
 		<license>MIT</license>
 		<icon>app.png</icon>
@@ -107,8 +107,8 @@ const testAppManifestSetup = `<?xml version="1.0" encoding="UTF-8"?>
 		<description>A description</description>
 		<description lang="de-DE">Eine Beschreibung</description>
 		<compatibility>~6.5.0</compatibility>
-		<author>Your Company Ltd.</author>
-		<copyright>(c) by Your Company Ltd.</copyright>
+		<author>Your Membership Ltd.</author>
+		<copyright>(c) by Your Membership Ltd.</copyright>
 		<version>1.0.0</version>
 		<license>MIT</license>
 	</meta>

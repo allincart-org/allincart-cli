@@ -13,7 +13,7 @@ import (
 
 var projectClearCacheCmd = &cobra.Command{
 	Use:   "clear-cache",
-	Short: "Clears the Shop cache",
+	Short: "Clears the Membership cache",
 	RunE: func(cmd *cobra.Command, _ []string) error {
 		var cfg *shop.Config
 		var err error

@@ -64,11 +64,11 @@ func (*Client) doRequest(request *http.Request) ([]byte, error) {
 	return data, nil
 }
 
-func (c *Client) GetActiveCompanyID() int {
-	return c.Token.UserID
+func (c *Client) GetActiveMembershipID() string {
+	return c.Token.MembershipId
 }
 
-func (c *Client) GetUserID() int {
+func (c *Client) GetUserID() string {
 	return c.Token.UserAccountID
 }
 
@@ -129,7 +129,7 @@ func createApiFromTokenCache(ctx context.Context) (*Client, error) {
 	}
 
 	logging.FromContext(ctx).Debugf("Using token cache from %s", tokenFilePath)
-	logging.FromContext(ctx).Debugf("Impersonating currently as %s (%d)", client.ActiveMembership.Company.Name, client.ActiveMembership.Company.Id)
+	logging.FromContext(ctx).Debugf("Impersonating currently as %s (%d)", client.ActiveMembership.Shop.Name, client.ActiveMembership.Shop.Id)
 
 	if !client.isTokenValid() {
 		return nil, fmt.Errorf("token is expired")

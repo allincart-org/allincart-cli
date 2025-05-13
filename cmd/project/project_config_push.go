@@ -104,7 +104,7 @@ var projectConfigPushCmd = &cobra.Command{
 			confirmForm := huh.NewForm(
 				huh.NewGroup(
 					huh.NewConfirm().
-						Title("You want to apply these changes to your Shop?").
+						Title("You want to apply these changes to your Membership?").
 						Value(&confirm),
 				),
 			)

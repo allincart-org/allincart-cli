@@ -24,7 +24,7 @@ var projectConfigInitCmd = &cobra.Command{
 		urlForm := huh.NewForm(
 			huh.NewGroup(
 				huh.NewInput().
-					Title("Shop-URL example: http://localhost").
+					Title("Membership-URL example: http://localhost").
 					Validate(emptyValidator).
 					Value(&config.URL),
 			),

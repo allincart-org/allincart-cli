@@ -15,7 +15,7 @@ func (c *Client) Merchant() *MerchantEndpoint {
 }
 
 func (m MerchantEndpoint) Shops(ctx context.Context) (MerchantShopList, error) {
-	r, err := m.c.NewAuthenticatedRequest(ctx, "GET", fmt.Sprintf("%s/shops?limit=100&userId=%d", ApiUrl, m.c.GetActiveCompanyID()), nil)
+	r, err := m.c.NewAuthenticatedRequest(ctx, "GET", fmt.Sprintf("%s/shops?limit=100&userId=%s", ApiUrl, m.c.GetActiveMembershipID()), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -141,7 +141,7 @@ func (m MerchantShopList) GetByDomain(domain string) *MerchantShop {
 }
 
 func (m MerchantEndpoint) GetComposerToken(ctx context.Context, shopId int) (string, error) {
-	r, err := m.c.NewAuthenticatedRequest(ctx, "GET", fmt.Sprintf("%s/companies/%d/shops/%d/packagestoken", ApiUrl, m.c.GetActiveCompanyID(), shopId), nil)
+	r, err := m.c.NewAuthenticatedRequest(ctx, "GET", fmt.Sprintf("%s/companies/%s/shops/%d/packagestoken", ApiUrl, m.c.GetActiveMembershipID(), shopId), nil)
 	if err != nil {
 		return "", err
 	}
@@ -168,7 +168,7 @@ func (m MerchantEndpoint) GetComposerToken(ctx context.Context, shopId int) (str
 }
 
 func (m MerchantEndpoint) GenerateComposerToken(ctx context.Context, shopId int) (string, error) {
-	r, err := m.c.NewAuthenticatedRequest(ctx, "POST", fmt.Sprintf("%s/companies/%d/shops/%d/packagestoken", ApiUrl, m.c.GetActiveCompanyID(), shopId), nil)
+	r, err := m.c.NewAuthenticatedRequest(ctx, "POST", fmt.Sprintf("%s/companies/%s/shops/%d/packagestoken", ApiUrl, m.c.GetActiveMembershipID(), shopId), nil)
 	if err != nil {
 		return "", err
 	}
@@ -190,7 +190,7 @@ func (m MerchantEndpoint) GenerateComposerToken(ctx context.Context, shopId int)
 }
 
 func (m MerchantEndpoint) SaveComposerToken(ctx context.Context, shopId int, token string) error {
-	r, err := m.c.NewAuthenticatedRequest(ctx, "POST", fmt.Sprintf("%s/companies/%d/shops/%d/packagestoken/%s", ApiUrl, m.c.GetActiveCompanyID(), shopId, token), nil)
+	r, err := m.c.NewAuthenticatedRequest(ctx, "POST", fmt.Sprintf("%s/companies/%s/shops/%d/packagestoken/%s", ApiUrl, m.c.GetActiveMembershipID(), shopId, token), nil)
 	if err != nil {
 		return err
 	}

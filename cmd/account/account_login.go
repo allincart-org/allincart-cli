@@ -44,10 +44,10 @@ var loginCmd = &cobra.Command{
 			return fmt.Errorf("login failed with error: %w", err)
 		}
 
-		if companyId := services.Conf.GetAccountCompanyId(); companyId > 0 {
-			err = changeAPIMembership(cmd.Context(), client, companyId)
+		if membershipId := services.Conf.GetMembershipId(); membershipId != "" {
+			err = changeAPIMembership(cmd.Context(), client, membershipId)
 			if err != nil {
-				return fmt.Errorf("cannot change company member ship: %w", err)
+				return fmt.Errorf("cannot change shop member ship: %w", err)
 			}
 		}
 
@@ -64,10 +64,9 @@ var loginCmd = &cobra.Command{
 		}
 
 		logging.FromContext(cmd.Context()).Infof(
-			"Hey %s %s. You are now authenticated on company %s and can use all account commands",
-			profile.PersonalData.FirstName,
-			profile.PersonalData.LastName,
-			client.GetActiveMembership().Company.Name,
+			"Hey %s. You are now authenticated on shop [%s] and can use all account commands",
+			profile.Name,
+			client.GetActiveMembership().Shop.Name,
 		)
 
 		return nil
@@ -110,18 +109,18 @@ func emptyValidator(s string) error {
 	return nil
 }
 
-func changeAPIMembership(ctx context.Context, client *accountApi.Client, companyID int) error {
-	if companyID == 0 || client.GetActiveCompanyID() == companyID {
+func changeAPIMembership(ctx context.Context, client *accountApi.Client, membershipId string) error {
+	if membershipId == "" || client.GetActiveMembershipID() == membershipId {
 		logging.FromContext(ctx).Debugf("Client is on correct membership skip")
 		return nil
 	}
 
 	for _, membership := range client.GetMemberships() {
-		if membership.Company.Id == companyID {
-			logging.FromContext(ctx).Debugf("Changing member ship from %s (%d) to %s (%d)", client.ActiveMembership.Company.Name, client.ActiveMembership.Company.Id, membership.Company.Name, membership.Company.Id)
+		if membership.Id == membershipId {
+			logging.FromContext(ctx).Debugf("Changing member ship from %s (%s) to %s (%s)", client.ActiveMembership.Shop.Name, client.ActiveMembership.Shop.Id, membership.Shop.Name, membership.Shop.Id)
 			return client.ChangeActiveMembership(ctx, membership)
 		}
 	}
 
-	return fmt.Errorf("could not find configured company with id %d", companyID)
+	return fmt.Errorf("could not find configured membership with id %s", membershipId)
 }

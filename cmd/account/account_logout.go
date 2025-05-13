@@ -19,7 +19,7 @@ var logoutCmd = &cobra.Command{
 			return fmt.Errorf("cannot invalidate token cache: %w", err)
 		}
 
-		_ = services.Conf.SetAccountCompanyId(0)
+		_ = services.Conf.SetMembershipId("")
 		_ = services.Conf.SetAccountEmail("")
 		_ = services.Conf.SetAccountPassword("")
 

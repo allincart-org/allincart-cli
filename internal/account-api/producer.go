@@ -22,7 +22,7 @@ func (e ProducerEndpoint) GetId() int {
 }
 
 func (c *Client) Producer(ctx context.Context) (*ProducerEndpoint, error) {
-	r, err := c.NewAuthenticatedRequest(ctx, "GET", fmt.Sprintf("%s/companies/%d/allocations", ApiUrl, c.GetActiveCompanyID()), nil)
+	r, err := c.NewAuthenticatedRequest(ctx, "GET", fmt.Sprintf("%s/companies/%s/allocations", ApiUrl, c.GetActiveMembershipID()), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -54,7 +54,7 @@ type companyAllocation struct {
 }
 
 func (e ProducerEndpoint) Profile(ctx context.Context) (*Producer, error) {
-	r, err := e.c.NewAuthenticatedRequest(ctx, "GET", fmt.Sprintf("%s/producers?companyId=%d", ApiUrl, e.c.GetActiveCompanyID()), nil)
+	r, err := e.c.NewAuthenticatedRequest(ctx, "GET", fmt.Sprintf("%s/producers?companyId=%s", ApiUrl, e.c.GetActiveMembershipID()), nil)
 	if err != nil {
 		return nil, err
 	}

@@ -51,7 +51,7 @@ func generateProjectSchema() error {
 		return err
 	}
 
-	if err := os.WriteFile("shop/shopware-project-schema.json", bytes, 0o644); err != nil {
+	if err := os.WriteFile("shop/allincart-project-schema.json", bytes, 0o644); err != nil {
 		return err
 	}
 
