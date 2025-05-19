@@ -1,0 +1,34 @@
+{
+    "go.lintTool": "golangci-lint",
+    "go.lintFlags": [
+        "--path-mode=abs",
+        "--fast-only"
+    ],
+    "go.formatTool": "custom",
+    "go.alternateTools": {
+        "customFormatter": "golangci-lint"
+    },
+    "go.formatFlags": [
+        "fmt",
+        "--stdin"
+    ],
+    "go.useLanguageServer": true,
+    "go.diagnostic.vulncheck": "Imports",
+    "go.inlayHints.functionTypeParameters": true,
+    "go.inlayHints.assignVariableTypes": true,
+    "go.inlayHints.compositeLiteralFields": true,
+    "go.inlayHints.constantValues": true,
+    "files.exclude": {
+        ".devenv": true,
+        ".direnv": true,
+        ".idea": true,
+    },
+    "php.problems.exclude": {
+        "internal/phplint/testdata/invalid.php": true
+    },
+    "go.toolsManagement.autoUpdate": false,
+    "go.toolsManagement.checkForUpdates": "off",
+    "yaml.schemas": {
+        "https://raw.githubusercontent.com/allincart-org/allincart-cli/main/extension/allincart-extension-schema.json": "file:///workspaces/allincart-cli/.allincart-extension.yml"
+    },
+}

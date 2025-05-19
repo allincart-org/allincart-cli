@@ -1,0 +1,121 @@
+package verifier
+
+import (
+	"context"
+	"os"
+	"path"
+	"sort"
+
+	"github.com/shyim/go-version"
+
+	"github.com/allincart-org/allincart-cli/extension"
+)
+
+func ConvertExtensionToToolConfig(ext extension.Extension) (*ToolConfig, error) {
+	var ignores []ToolConfigIgnore
+
+	for _, ignore := range ext.GetExtensionConfig().Validation.Ignore {
+		ignores = append(ignores, ToolConfigIgnore{
+			Identifier: ignore.Identifier,
+			Path:       ignore.Path,
+			Message:    ignore.Message,
+		})
+	}
+
+	cfg := &ToolConfig{
+		ToolDirectory:         GetToolDirectory(),
+		Extension:             ext,
+		ValidationIgnores:     ignores,
+		RootDir:               ext.GetPath(),
+		SourceDirectories:     ext.GetSourceDirs(),
+		AdminDirectories:      getAdminFolders(ext),
+		StorefrontDirectories: getStorefrontFolders(ext),
+	}
+
+	constraint, err := ext.GetAllincartVersionConstraint()
+	if err != nil {
+		return nil, err
+	}
+
+	if err := determineVersionRange(cfg, constraint); err != nil {
+		return nil, err
+	}
+
+	return cfg, nil
+}
+
+func determineVersionRange(cfg *ToolConfig, versionConstraint *version.Constraints) error {
+	versions, err := extension.GetAllincartVersions(context.Background())
+	if err != nil {
+		return err
+	}
+
+	vs := make([]*version.Version, 0)
+
+	for _, r := range versions {
+		v, err := version.NewVersion(r)
+		if err != nil {
+			continue
+		}
+
+		vs = append(vs, v)
+	}
+
+	sort.Sort(version.Collection(vs))
+
+	matchingVersions := make([]*version.Version, 0)
+
+	for _, v := range vs {
+		if versionConstraint.Check(v) {
+			matchingVersions = append(matchingVersions, v)
+		}
+	}
+
+	if len(matchingVersions) == 0 {
+		matchingVersions = append(matchingVersions, version.Must(version.NewVersion("6.7.0.0")))
+	}
+
+	cfg.MinAllincartVersion = matchingVersions[0].String()
+	cfg.MaxAllincartVersion = matchingVersions[len(matchingVersions)-1].String()
+
+	return nil
+}
+
+func getAdminFolders(ext extension.Extension) []string {
+	paths := []string{}
+
+	for _, sourceDirs := range ext.GetSourceDirs() {
+		paths = append(paths, path.Join(sourceDirs, "Resources", "app", "administration"))
+	}
+
+	for _, bundle := range ext.GetExtensionConfig().Build.ExtraBundles {
+		paths = append(paths, path.Join(ext.GetRootDir(), bundle.Path, "Resources", "app", "administration"))
+	}
+
+	return filterNotExistingPaths(paths)
+}
+
+func getStorefrontFolders(ext extension.Extension) []string {
+	paths := []string{}
+
+	for _, sourceDirs := range ext.GetSourceDirs() {
+		paths = append(paths, path.Join(sourceDirs, "Resources", "app", "storefront"))
+	}
+
+	for _, bundle := range ext.GetExtensionConfig().Build.ExtraBundles {
+		paths = append(paths, path.Join(ext.GetRootDir(), bundle.Path, "Resources", "app", "storefront"))
+	}
+
+	return filterNotExistingPaths(paths)
+}
+
+func filterNotExistingPaths(paths []string) []string {
+	filteredPaths := make([]string, 0)
+	for _, p := range paths {
+		if _, err := os.Stat(p); !os.IsNotExist(err) {
+			filteredPaths = append(filteredPaths, p)
+		}
+	}
+
+	return filteredPaths
+}

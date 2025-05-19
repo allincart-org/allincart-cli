@@ -1,0 +1,4 @@
+FROM scratch
+COPY allincart-cli /
+ENTRYPOINT ["/allincart-cli"]
+CMD ["--help"]

@@ -1,0 +1,25 @@
+/.idea
+/.fleet
+/allincart-cli*
+dist/
+/completions
+/local
+/.allincart-cli
+/.allincart-project.yml
+/.allincart-project.yaml
+/test-app
+/go-allincart-admin-api-sdk
+/*.zip
+/Frosh*
+/Swag*
+/result
+/project
+dump.sql*
+
+/testdata
+
+# Devenv
+.devenv*
+devenv.local.nix
+
+/.direnv

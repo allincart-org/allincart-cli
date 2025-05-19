@@ -1,0 +1,72 @@
+name: Smoke Test
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@0634a2670c59f64b4a01f0f96f84700a4088b9f0
+        with:
+          egress-policy: audit
+
+      - name: Checkout Repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # ratchet:actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@d35c59abb061a4a6fb18e82ac0862c26744d6ab5 # ratchet:actions/setup-go@v5
+        with:
+          go-version: '1.24'
+          cache: true
+          check-latest: true
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@cf4cade2721270509d5b1c766ab3549210a39a2a # ratchet:shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      - name: Compile allincart-cli
+        run: go build
+
+      - name: Checkout Plugin
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # ratchet:actions/checkout@v4
+        with:
+          repository: 'FriendsOfAllincart/FroshTools'
+          ref: '75e2013752fd4db7535e4b72b3e3e8d57e531002'
+          path: 'plugin'
+
+      - name: Create Allincart
+        run: ./allincart-cli project create allincart 6.5.7.3
+
+      - name: Build asset of Plugin
+        run: ./allincart-cli extension zip plugin
+
+      - name: Build asset of Plugin without Git
+        run: ./allincart-cli extension zip plugin --disable-git --release
+
+      - name: Validate Plugin
+        run: ./allincart-cli extension validate FroshTools.zip
+
+      - name: Get Changelog
+        run: ./allincart-cli extension get-changelog FroshTools.zip
+
+      - name: Build asset against custom PROJECT_ROOT
+        env:
+          ALLINCART_PROJECT_ROOT: ${{ github.workspace }}/allincart
+        run: |
+          mv plugin/.allincart-extension.yml plugin/.allincart-extension-disable.yml
+          ./allincart-cli extension build plugin
+          mv plugin/.allincart-extension-disable.yml plugin/.allincart-extension.yml
+
+      - name: Install a Storefront Plugin
+        working-directory: allincart
+        run: |
+          composer require 'frosh/platform-filter-search:*' --no-interaction --no-scripts
+          rm -rf vendor
+
+      - name: Setup the project
+        run: ./allincart-cli project ci allincart

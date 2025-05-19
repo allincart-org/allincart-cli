@@ -1,0 +1,520 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/allincart-org/allincart-cli/shop/config",
+  "$ref": "#/$defs/Config",
+  "$defs": {
+    "Config": {
+      "properties": {
+        "include": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "url": {
+          "type": "string",
+          "description": "The URL of the Allincart instance"
+        },
+        "build": {
+          "$ref": "#/$defs/ConfigBuild"
+        },
+        "admin_api": {
+          "$ref": "#/$defs/ConfigAdminApi"
+        },
+        "dump": {
+          "$ref": "#/$defs/ConfigDump"
+        },
+        "sync": {
+          "$ref": "#/$defs/ConfigSync"
+        },
+        "deployment": {
+          "$ref": "#/$defs/ConfigDeployment"
+        },
+        "validation": {
+          "$ref": "#/$defs/ConfigValidation"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "ConfigAdminApi": {
+      "properties": {
+        "client_id": {
+          "type": "string",
+          "description": "Client ID of integration"
+        },
+        "client_secret": {
+          "type": "string",
+          "description": "Client Secret of integration"
+        },
+        "username": {
+          "type": "string",
+          "description": "Username of admin user"
+        },
+        "password": {
+          "type": "string",
+          "description": "Password of admin user"
+        },
+        "disable_ssl_check": {
+          "type": "boolean",
+          "description": "Disable SSL certificate check"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "ConfigBuild": {
+      "properties": {
+        "disable_asset_copy": {
+          "type": "boolean",
+          "description": "When enabled, the assets will not be copied to the public folder"
+        },
+        "remove_extension_assets": {
+          "type": "boolean",
+          "description": "When enabled, the assets of extensions will be removed from the extension public folder. (Requires Allincart 6.5.2.0)"
+        },
+        "keep_extension_source": {
+          "type": "boolean",
+          "description": "When enabled, the extensions source code will be keep in the final build"
+        },
+        "keep_source_maps": {
+          "type": "boolean",
+          "description": "When enabled, the source maps will not be removed from the final build"
+        },
+        "cleanup_paths": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "description": "Paths to delete for the final build"
+        },
+        "browserslist": {
+          "type": "string",
+          "description": "Browserslist configuration for the Storefront build"
+        },
+        "exclude_extensions": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "description": "Extensions to exclude from the build"
+        },
+        "disable_storefront_build": {
+          "type": "boolean",
+          "description": "When enabled, the storefront build will be skipped"
+        },
+        "force_extension_build": {
+          "items": {
+            "$ref": "#/$defs/ConfigBuildExtension"
+          },
+          "type": "array",
+          "description": "Extensions to force build for, even if they have compiled files"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "ConfigBuildExtension": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the extension"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "description": "ConfigBuildExtension defines the configuration for forcing extension builds."
+    },
+    "ConfigDeployment": {
+      "properties": {
+        "hooks": {
+          "properties": {
+            "pre": {
+              "type": "string"
+            },
+            "post": {
+              "type": "string"
+            },
+            "pre-install": {
+              "type": "string"
+            },
+            "post-install": {
+              "type": "string"
+            },
+            "pre-update": {
+              "type": "string"
+            },
+            "post-update": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object"
+        },
+        "store": {
+          "properties": {
+            "license-domain": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object"
+        },
+        "cache": {
+          "properties": {
+            "always_clear": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object"
+        },
+        "extension-management": {
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "exclude": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "overrides": {
+              "$ref": "#/$defs/ConfigDeploymentOverrides"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "description": "The extension management of the deployment"
+        },
+        "one-time-tasks": {
+          "items": {
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "script": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "required": [
+              "id",
+              "script"
+            ]
+          },
+          "type": "array"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "ConfigDeploymentOverrides": {
+      "additionalProperties": {
+        "properties": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "inactive",
+              "remove",
+              "ignore"
+            ]
+          },
+          "keepUserData": {
+            "type": "boolean"
+          }
+        },
+        "type": "object",
+        "required": [
+          "state"
+        ]
+      },
+      "type": "object",
+      "title": "Extension overrides"
+    },
+    "ConfigDump": {
+      "properties": {
+        "rewrite": {
+          "additionalProperties": {
+            "$ref": "#/$defs/Rewrite"
+          },
+          "type": "object",
+          "description": "Allows to rewrite single columns, perfect for GDPR compliance"
+        },
+        "nodata": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "description": "Only export the schema of these tables"
+        },
+        "ignore": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "description": "Ignore these tables from export"
+        },
+        "where": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object",
+          "description": "Add an where condition to that table, schema is table name as key, and where statement as value"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "ConfigSync": {
+      "properties": {
+        "enabled": {
+          "items": {
+            "type": "string",
+            "enum": [
+              "system_config",
+              "mail_template",
+              "theme",
+              "entity"
+            ]
+          },
+          "type": "array"
+        },
+        "config": {
+          "items": {
+            "$ref": "#/$defs/ConfigSyncConfig"
+          },
+          "type": "array"
+        },
+        "theme": {
+          "items": {
+            "$ref": "#/$defs/ThemeConfig"
+          },
+          "type": "array"
+        },
+        "mail_template": {
+          "items": {
+            "$ref": "#/$defs/MailTemplate"
+          },
+          "type": "array"
+        },
+        "entity": {
+          "items": {
+            "$ref": "#/$defs/EntitySync"
+          },
+          "type": "array"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "ConfigSyncConfig": {
+      "properties": {
+        "sales_channel": {
+          "type": "string",
+          "description": "Sales Channel ID to apply"
+        },
+        "settings": {
+          "type": "object",
+          "description": "Configurations of that Sales Channel"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "ConfigValidation": {
+      "properties": {
+        "ignore": {
+          "items": {
+            "$ref": "#/$defs/ConfigValidationIgnoreItem"
+          },
+          "type": "array",
+          "description": "Ignore items from the validation."
+        },
+        "ignore_extensions": {
+          "items": {
+            "$ref": "#/$defs/ConfigValidationIgnoreExtension"
+          },
+          "type": "array"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "description": "ConfigValidation is used to configure the project validation."
+    },
+    "ConfigValidationIgnoreExtension": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the extension to ignore."
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "ConfigValidationIgnoreItem": {
+      "properties": {
+        "identifier": {
+          "type": "string",
+          "description": "The identifier of the item to ignore."
+        },
+        "path": {
+          "type": "string",
+          "description": "The path of the item to ignore."
+        },
+        "message": {
+          "type": "string",
+          "description": "The message of the item to ignore."
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "description": "ConfigValidationIgnoreItem is used to ignore items from the validation."
+    },
+    "EntitySync": {
+      "properties": {
+        "entity": {
+          "type": "string"
+        },
+        "exists": {
+          "items": {
+            "$ref": "#/$defs/EntitySyncFilter"
+          },
+          "type": "array"
+        },
+        "payload": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "EntitySyncFilter": {
+      "allOf": [
+        {
+          "if": {
+            "then": {
+              "required": [
+                "type",
+                "queries"
+              ]
+            },
+            "properties": {
+              "type": {
+                "const": "multi"
+              }
+            }
+          }
+        }
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "equals",
+            "multi",
+            "contains",
+            "prefix",
+            "suffix",
+            "not",
+            "range",
+            "until",
+            "equalsAll",
+            "equalsAny"
+          ]
+        },
+        "field": {
+          "type": "string",
+          "description": "The field to filter on"
+        },
+        "value": {
+          "description": "The actual filter value"
+        },
+        "operator": {
+          "type": "string",
+          "enum": [
+            "AND",
+            "OR",
+            "XOR"
+          ]
+        }
+      },
+      "type": "object",
+      "required": [
+        "type",
+        "field"
+      ],
+      "title": "Entity Sync Filter"
+    },
+    "MailTemplate": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "translations": {
+          "items": {
+            "$ref": "#/$defs/MailTemplateTranslation"
+          },
+          "type": "array"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "MailTemplateTranslation": {
+      "properties": {
+        "language": {
+          "type": "string"
+        },
+        "sender_name": {
+          "type": "string"
+        },
+        "subject": {
+          "type": "string"
+        },
+        "html": {
+          "type": "string"
+        },
+        "plain": {
+          "type": "string"
+        },
+        "custom_fields": true
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "Rewrite": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "type": "object"
+    },
+    "ThemeConfig": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "settings": {
+          "additionalProperties": {
+            "$ref": "#/$defs/ThemeConfigValue"
+          },
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "ThemeConfigValue": {
+      "properties": {
+        "value": true
+      },
+      "additionalProperties": false,
+      "type": "object"
+    }
+  }
+}

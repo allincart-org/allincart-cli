@@ -1,0 +1,19 @@
+{
+    "name": "@allincart-ag/admin-eslint-rules",
+    "type": "module",
+    "description": "Allincart Administration ESLint rules",
+    "version": "1.0.0",
+    "main": "index.js",
+    "dependencies": {
+        "compare-versions": "^6.1"
+    },
+    "peerDependencies": {
+        "eslint": "^9"
+    },
+    "exports": {
+        ".": {
+            "import": "./index.js",
+            "require": "./index.js"
+        }
+    }
+}

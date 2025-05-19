@@ -1,0 +1,60 @@
+version: "2"
+
+linters:
+  enable:
+    - bodyclose
+    - exhaustive
+    - goconst
+    - goprintffuncname
+    - govet
+    - ineffassign
+    - misspell
+    - nakedret
+    - noctx
+    - staticcheck
+    - unconvert
+    - unparam
+    - unused
+    - whitespace
+    - asciicheck
+    - gocyclo
+    - gocritic
+    - errcheck
+    - thelper
+    - tparallel
+    - predeclared
+    - nilerr
+    - makezero
+    - forbidigo
+    - errname
+    - nilnil
+    - usetesting
+    - bidichk
+    - containedctx
+    - decorder
+    - dogsled
+    - dupword
+    - durationcheck
+    - errname
+    - ginkgolinter
+    - gocheckcompilerdirectives
+    - goconst
+    - godox
+    - nilnil
+  exclusions:
+    rules:
+      - path: cmd\/*
+        linters:
+          - forbidigo
+
+formatters:
+  enable:
+    - gofmt
+    - gci
+  settings:
+    gci:
+      sections:
+        - Standard
+        - Default
+        - "Prefix(github.com/allincart-org/allincart-cli)"
+  

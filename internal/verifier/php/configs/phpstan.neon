@@ -1,0 +1,28 @@
+includes:
+    - %env.PHP_DIR%/vendor/spaze/phpstan-disallowed-calls/disallowed-dangerous-calls.neon
+    - %env.PHP_DIR%/vendor/spaze/phpstan-disallowed-calls/disallowed-execution-calls.neon
+
+parameters:
+    level: 5
+
+    bootstrapFiles:
+        - %currentWorkingDirectory%/vendor/autoload.php
+    paths:
+        - %currentWorkingDirectory%
+    excludePaths:
+        - vendor (?)
+        - vendor-bin (?)
+        - tests/ (?)
+        - Test/ (?)
+        - autoload-dist/vendor (?)
+
+    reportUnmatchedIgnoredErrors: false
+    tipsOfTheDay: false
+    disallowedFunctionCalls:
+        -
+            function: 'dd()'
+            message: 'do not use dd() in production code'
+        -
+            function: 'dump()'
+            message: 'do not use dump() in production code'
+            
