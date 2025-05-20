@@ -35,8 +35,8 @@ jobs:
       - name: Checkout Plugin
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # ratchet:actions/checkout@v4
         with:
-          repository: 'FriendsOfAllincart/FroshTools'
-          ref: '75e2013752fd4db7535e4b72b3e3e8d57e531002'
+          repository: 'allincart-org/allincart'
+          ref: 'ff448d00afbf5ec13c5729d9c99a3a774566c160'
           path: 'plugin'
 
       - name: Create Allincart
