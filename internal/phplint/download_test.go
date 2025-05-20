@@ -12,6 +12,6 @@ func TestDownloadPHPFile(t *testing.T) {
 		t.Skip("Downloading does not work in Nix build")
 	}
 
-	_, err := findPHPWasmFile(t.Context(), "7.4")
+	_, err := findPHPWasmFile(t.Context(), "8.4")
 	assert.NoError(t, err)
 }
