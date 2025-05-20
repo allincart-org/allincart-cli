@@ -184,11 +184,11 @@ func (p PlatformPlugin) GetMetaData() *extensionMetadata {
 	return &extensionMetadata{
 		Name: p.Composer.Name,
 		Label: extensionTranslated{
-			Chinese: p.Composer.Extra.Label["de-DE"],
+			Chinese: p.Composer.Extra.Label["zh-CN"],
 			English: p.Composer.Extra.Label["en-GB"],
 		},
 		Description: extensionTranslated{
-			Chinese: p.Composer.Extra.Description["de-DE"],
+			Chinese: p.Composer.Extra.Description["zh-CN"],
 			English: p.Composer.Extra.Description["en-GB"],
 		},
 	}
@@ -231,7 +231,7 @@ func (p PlatformPlugin) Validate(c context.Context, ctx *ValidationContext) {
 		}
 	}
 
-	requiredKeys := []string{"de-DE", "en-GB"}
+	requiredKeys := []string{"zh-CN", "en-GB"}
 
 	for _, key := range requiredKeys {
 		_, hasLabel := p.Composer.Extra.Label[key]
@@ -308,7 +308,7 @@ func validatePHPFiles(c context.Context, ctx *ValidationContext) {
 }
 
 func GetPhpVersion(ctx context.Context, constraint *version.Constraints) (string, error) {
-	r, _ := http.NewRequestWithContext(context.Background(), http.MethodGet, "https://raw.githubusercontent.com/FriendsOfAllincart/allincart-static-data/main/data/php-version.json", http.NoBody)
+	r, _ := http.NewRequestWithContext(context.Background(), http.MethodGet, "https://raw.githubusercontent.com/allincart-org/allincart-static-data/main/data/php-version.json", http.NoBody)
 
 	resp, err := http.DefaultClient.Do(r)
 	if err != nil {

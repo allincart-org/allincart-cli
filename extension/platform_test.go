@@ -29,19 +29,19 @@ func getTestPlugin(tempDir string) PlatformPlugin {
 				AllincartPluginClass: "FroshTools\\FroshTools",
 				Label: map[string]string{
 					"en-GB": "Frosh Tools",
-					"de-DE": "Frosh Tools",
+					"zh-CN": "Frosh Tools",
 				},
 				Description: map[string]string{
 					"en-GB": "Frosh Tools",
-					"de-DE": "Frosh Tools",
+					"zh-CN": "Frosh Tools",
 				},
 				ManufacturerLink: map[string]string{
 					"en-GB": "Frosh Tools",
-					"de-DE": "Frosh Tools",
+					"zh-CN": "Frosh Tools",
 				},
 				SupportLink: map[string]string{
 					"en-GB": "Frosh Tools",
-					"de-DE": "Frosh Tools",
+					"zh-CN": "Frosh Tools",
 				},
 			},
 		},

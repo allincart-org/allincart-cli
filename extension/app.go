@@ -126,7 +126,7 @@ func (a App) GetChangelog() (*ExtensionChangelog, error) {
 }
 
 func (a App) GetMetaData() *extensionMetadata {
-	german := []string{"de-DE", "de"}
+	german := []string{"zh-CN", "de"}
 	english := []string{"en-GB", "en-US", "en", ""}
 
 	return &extensionMetadata{

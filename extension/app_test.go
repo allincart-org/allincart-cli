@@ -14,9 +14,9 @@ const testAppManifest = `<?xml version="1.0" encoding="UTF-8"?>
 	<meta>
 		<name>MyExampleApp</name>
 		<label>Label</label>
-		<label lang="de-DE">Name</label>
+		<label lang="zh-CN">Name</label>
 		<description>A description</description>
-		<description lang="de-DE">Eine Beschreibung</description>
+		<description lang="zh-CN">Eine Beschreibung</description>
 		<author>Your Company Ltd.</author>
 		<copyright>(c) by Your Company Ltd.</copyright>
 		<version>1.0.0</version>
@@ -29,9 +29,9 @@ const testAppManifestMissingLicense = `<?xml version="1.0" encoding="UTF-8"?>
 	<meta>
 		<name>MyExampleApp</name>
 		<label>Label</label>
-		<label lang="de-DE">Name</label>
+		<label lang="zh-CN">Name</label>
 		<description>A description</description>
-		<description lang="de-DE">Eine Beschreibung</description>
+		<description lang="zh-CN">Eine Beschreibung</description>
 		<author>Your Company Ltd.</author>
 		<copyright>(c) by Your Company Ltd.</copyright>
 		<version>1.0.0</version>
@@ -43,9 +43,9 @@ const testAppManifestMissingCopyright = `<?xml version="1.0" encoding="UTF-8"?>
 	<meta>
 		<name>MyExampleApp</name>
 		<label>Label</label>
-		<label lang="de-DE">Name</label>
+		<label lang="zh-CN">Name</label>
 		<description>A description</description>
-		<description lang="de-DE">Eine Beschreibung</description>
+		<description lang="zh-CN">Eine Beschreibung</description>
 		<author>Your Company Ltd.</author>
 		<version>1.0.0</version>
 		<license>MIT</license>
@@ -57,9 +57,9 @@ const testAppManifestMissingAuthor = `<?xml version="1.0" encoding="UTF-8"?>
 	<meta>
 		<name>MyExampleApp</name>
 		<label>Label</label>
-		<label lang="de-DE">Name</label>
+		<label lang="zh-CN">Name</label>
 		<description>A description</description>
-		<description lang="de-DE">Eine Beschreibung</description>
+		<description lang="zh-CN">Eine Beschreibung</description>
 		<copyright>(c) by Your Company Ltd.</copyright>
 		<version>1.0.0</version>
 		<license>MIT</license>
@@ -71,9 +71,9 @@ const testAppManifestCompatibility = `<?xml version="1.0" encoding="UTF-8"?>
 	<meta>
 		<name>MyExampleApp</name>
 		<label>Label</label>
-		<label lang="de-DE">Name</label>
+		<label lang="zh-CN">Name</label>
 		<description>A description</description>
-		<description lang="de-DE">Eine Beschreibung</description>
+		<description lang="zh-CN">Eine Beschreibung</description>
 		<compatibility>~6.5.0</compatibility>
 		<author>Your Company Ltd.</author>
 		<copyright>(c) by Your Company Ltd.</copyright>
@@ -87,9 +87,9 @@ const testAppManifestIcon = `<?xml version="1.0" encoding="UTF-8"?>
 	<meta>
 		<name>MyExampleApp</name>
 		<label>Label</label>
-		<label lang="de-DE">Name</label>
+		<label lang="zh-CN">Name</label>
 		<description>A description</description>
-		<description lang="de-DE">Eine Beschreibung</description>
+		<description lang="zh-CN">Eine Beschreibung</description>
 		<author>Your Company Ltd.</author>
 		<copyright>(c) by Your Company Ltd.</copyright>
 		<version>1.0.0</version>
@@ -103,9 +103,9 @@ const testAppManifestSetup = `<?xml version="1.0" encoding="UTF-8"?>
 	<meta>
 		<name>MyExampleApp</name>
 		<label>Label</label>
-		<label lang="de-DE">Name</label>
+		<label lang="zh-CN">Name</label>
 		<description>A description</description>
-		<description lang="de-DE">Eine Beschreibung</description>
+		<description lang="zh-CN">Eine Beschreibung</description>
 		<compatibility>~6.5.0</compatibility>
 		<author>Your Company Ltd.</author>
 		<copyright>(c) by Your Company Ltd.</copyright>
