@@ -131,11 +131,11 @@ func (a App) GetMetaData() *extensionMetadata {
 
 	return &extensionMetadata{
 		Label: extensionTranslated{
-			German:  a.manifest.Meta.Label.GetValueByLanguage(german),
+			Chinese: a.manifest.Meta.Label.GetValueByLanguage(german),
 			English: a.manifest.Meta.Label.GetValueByLanguage(english),
 		},
 		Description: extensionTranslated{
-			German:  a.manifest.Meta.Description.GetValueByLanguage(german),
+			Chinese: a.manifest.Meta.Description.GetValueByLanguage(german),
 			English: a.manifest.Meta.Description.GetValueByLanguage(english),
 		},
 	}

@@ -159,44 +159,14 @@ func (l LoginRequest) GetAccountPassword() string {
 }
 
 type Membership struct {
-	Id           int    `json:"id"`
-	CreationDate string `json:"creationDate"`
-	Active       bool   `json:"active"`
-	Member       struct {
-		Id           int         `json:"id"`
-		Email        string      `json:"email"`
-		AvatarUrl    interface{} `json:"avatarUrl"`
-		PersonalData struct {
-			Id         int `json:"id"`
-			Salutation struct {
-				Id          int    `json:"id"`
-				Name        string `json:"name"`
-				Description string `json:"description"`
-			} `json:"salutation"`
-			FirstName string `json:"firstName"`
-			LastName  string `json:"lastName"`
-			Locale    struct {
-				Id          int    `json:"id"`
-				Name        string `json:"name"`
-				Description string `json:"description"`
-			} `json:"locale"`
-		} `json:"personalData"`
-	} `json:"member"`
+	Id      int `json:"id"`
 	Company struct {
 		Id             int    `json:"id"`
 		Name           string `json:"name"`
 		CustomerNumber string `json:"customerNumber"`
 	} `json:"company"`
 	Roles []struct {
-		Id           int         `json:"id"`
-		Name         string      `json:"name"`
-		CreationDate string      `json:"creationDate"`
-		Company      interface{} `json:"company"`
-		Permissions  []struct {
-			Id      int    `json:"id"`
-			Context string `json:"context"`
-			Name    string `json:"name"`
-		} `json:"permissions"`
+		Name string `json:"name"`
 	} `json:"roles"`
 }
 

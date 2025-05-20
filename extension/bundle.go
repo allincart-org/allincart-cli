@@ -163,11 +163,11 @@ func (p AllincartBundle) GetPath() string {
 func (p AllincartBundle) GetMetaData() *extensionMetadata {
 	return &extensionMetadata{
 		Label: extensionTranslated{
-			German:  "FALLBACK",
+			Chinese: "FALLBACK",
 			English: "FALLBACK",
 		},
 		Description: extensionTranslated{
-			German:  "FALLBACK",
+			Chinese: "FALLBACK",
 			English: "FALLBACK",
 		},
 	}

@@ -52,13 +52,13 @@ var accountCompanyProducerExtensionInfoPullCmd = &cobra.Command{
 		categoryList := make([]string, 0)
 		availabilities := make([]string, 0)
 		localizations := make([]string, 0)
-		tagsDE := make([]string, 0)
+		tagsZH := make([]string, 0)
 		tagsEN := make([]string, 0)
-		videosDE := make([]string, 0)
+		videosZH := make([]string, 0)
 		videosEN := make([]string, 0)
-		highlightsDE := make([]string, 0)
+		highlightsZH := make([]string, 0)
 		highlightsEN := make([]string, 0)
-		featuresDE := make([]string, 0)
+		featuresZH := make([]string, 0)
 		featuresEN := make([]string, 0)
 		faqDE := make([]extension.ConfigStoreFaq, 0)
 		faqEN := make([]extension.ConfigStoreFaq, 0)
@@ -115,45 +115,45 @@ var accountCompanyProducerExtensionInfoPullCmd = &cobra.Command{
 			}
 		}
 
-		germanDescription := ""
+		chineseDescription := ""
 		englishDescription := ""
-		germanInstallationManual := ""
+		chineseInstallationManual := ""
 		englishInstallationManual := ""
-		germanMetaTitle := ""
+		chineseMetaTitle := ""
 		englishMetaTitle := ""
-		germanMetaDescription := ""
+		chineseMetaDescription := ""
 		englishMetaDescription := ""
 
 		for _, info := range storeExt.Infos {
 			language := info.Locale.Name[0:2]
 
-			if language == "de" {
-				germanDescription = "file:src/Resources/store/description.de.html"
-				germanInstallationManual = "file:src/Resources/store/installation_manual.de.html"
-				germanMetaTitle = info.MetaTitle
-				germanMetaDescription = info.MetaDescription
+			if language == "zh" {
+				chineseDescription = "file:src/Resources/store/description.zh.html"
+				chineseInstallationManual = "file:src/Resources/store/installation_manual.zh.html"
+				chineseMetaTitle = info.MetaTitle
+				chineseMetaDescription = info.MetaDescription
 
-				if err := os.WriteFile(path.Join(zipExt.GetPath(), germanDescription[5:]), []byte(info.Description), os.ModePerm); err != nil {
+				if err := os.WriteFile(path.Join(zipExt.GetPath(), chineseDescription[5:]), []byte(info.Description), os.ModePerm); err != nil {
 					return fmt.Errorf("cannot write file: %w", err)
 				}
 
-				if err := os.WriteFile(path.Join(zipExt.GetPath(), germanInstallationManual[5:]), []byte(info.InstallationManual), os.ModePerm); err != nil {
+				if err := os.WriteFile(path.Join(zipExt.GetPath(), chineseInstallationManual[5:]), []byte(info.InstallationManual), os.ModePerm); err != nil {
 					return fmt.Errorf("cannot write file: %w", err)
 				}
 
 				for _, element := range info.Tags {
-					tagsDE = append(tagsDE, element.Name)
+					tagsZH = append(tagsZH, element.Name)
 				}
 
 				for _, element := range info.Videos {
-					videosDE = append(videosDE, element.URL)
+					videosZH = append(videosZH, element.URL)
 				}
 
 				if info.Highlights != "" {
-					highlightsDE = append(highlightsDE, strings.Split(info.Highlights, "\n")...)
+					highlightsZH = append(highlightsZH, strings.Split(info.Highlights, "\n")...)
 				}
 				if info.Features != "" {
-					featuresDE = append(featuresDE, strings.Split(info.Features, "\n")...)
+					featuresZH = append(featuresZH, strings.Split(info.Features, "\n")...)
 				}
 
 				for _, element := range info.Faqs {
@@ -209,16 +209,16 @@ var accountCompanyProducerExtensionInfoPullCmd = &cobra.Command{
 		newCfg.Store.AutomaticBugfixVersionCompatibility = &storeExt.AutomaticBugfixVersionCompatibility
 		newCfg.Store.Availabilities = &availabilities
 		newCfg.Store.Localizations = &localizations
-		newCfg.Store.Description = extension.ConfigTranslated[string]{German: &germanDescription, English: &englishDescription}
-		newCfg.Store.InstallationManual = extension.ConfigTranslated[string]{German: &germanInstallationManual, English: &englishInstallationManual}
+		newCfg.Store.Description = extension.ConfigTranslated[string]{Chinese: &chineseDescription, English: &englishDescription}
+		newCfg.Store.InstallationManual = extension.ConfigTranslated[string]{Chinese: &chineseInstallationManual, English: &englishInstallationManual}
 		newCfg.Store.Categories = &categoryList
-		newCfg.Store.Tags = extension.ConfigTranslated[[]string]{German: &tagsDE, English: &tagsEN}
-		newCfg.Store.Videos = extension.ConfigTranslated[[]string]{German: &videosDE, English: &videosEN}
-		newCfg.Store.Highlights = extension.ConfigTranslated[[]string]{German: &highlightsDE, English: &highlightsEN}
-		newCfg.Store.Features = extension.ConfigTranslated[[]string]{German: &featuresDE, English: &featuresEN}
-		newCfg.Store.Faq = extension.ConfigTranslated[[]extension.ConfigStoreFaq]{German: &faqDE, English: &faqEN}
-		newCfg.Store.MetaTitle = extension.ConfigTranslated[string]{German: &germanMetaTitle, English: &englishMetaTitle}
-		newCfg.Store.MetaDescription = extension.ConfigTranslated[string]{German: &germanMetaDescription, English: &englishMetaDescription}
+		newCfg.Store.Tags = extension.ConfigTranslated[[]string]{Chinese: &tagsZH, English: &tagsEN}
+		newCfg.Store.Videos = extension.ConfigTranslated[[]string]{Chinese: &videosZH, English: &videosEN}
+		newCfg.Store.Highlights = extension.ConfigTranslated[[]string]{Chinese: &highlightsZH, English: &highlightsEN}
+		newCfg.Store.Features = extension.ConfigTranslated[[]string]{Chinese: &featuresZH, English: &featuresEN}
+		newCfg.Store.Faq = extension.ConfigTranslated[[]extension.ConfigStoreFaq]{Chinese: &faqDE, English: &faqEN}
+		newCfg.Store.MetaTitle = extension.ConfigTranslated[string]{Chinese: &chineseMetaTitle, English: &englishMetaTitle}
+		newCfg.Store.MetaDescription = extension.ConfigTranslated[string]{Chinese: &chineseMetaDescription, English: &englishMetaDescription}
 		newCfg.Store.Images = nil
 
 		if len(storeImages) > 0 {
@@ -299,7 +299,7 @@ func writeImages(ctx context.Context, imagePath string, index int, storeImages [
 	}
 
 	if index == 0 {
-		imagePath = path.Join(imagePath, "de")
+		imagePath = path.Join(imagePath, "zh")
 	} else {
 		imagePath = path.Join(imagePath, "en")
 	}

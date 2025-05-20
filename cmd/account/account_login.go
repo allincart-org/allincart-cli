@@ -64,9 +64,8 @@ var loginCmd = &cobra.Command{
 		}
 
 		logging.FromContext(cmd.Context()).Infof(
-			"Hey %s %s. You are now authenticated on company %s and can use all account commands",
-			profile.PersonalData.FirstName,
-			profile.PersonalData.LastName,
+			"Hey %s. You are now authenticated on company %s and can use all account commands",
+			profile.PersonalData.Name,
 			client.GetActiveMembership().Company.Name,
 		)
 

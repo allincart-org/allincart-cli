@@ -82,7 +82,7 @@ var accountCompanyProducerExtensionUploadCmd = &cobra.Command{
 				Version:          zipVersion.String(),
 				SoftwareVersions: avaiableVersions.FilterOnVersionStringList(constraint),
 				Changelogs: []account_api.ExtensionUpdateChangelog{
-					{Locale: "de_DE", Text: changelog.German},
+					{Locale: "de_DE", Text: changelog.Chinese},
 					{Locale: "en_GB", Text: changelog.English},
 				},
 			}
@@ -101,7 +101,7 @@ var accountCompanyProducerExtensionUploadCmd = &cobra.Command{
 			Id:               foundBinary.Id,
 			SoftwareVersions: avaiableVersions.FilterOnVersionStringList(constraint),
 			Changelogs: []account_api.ExtensionUpdateChangelog{
-				{Locale: "de_DE", Text: changelog.German},
+				{Locale: "de_DE", Text: changelog.Chinese},
 				{Locale: "en_GB", Text: changelog.English},
 			},
 		}

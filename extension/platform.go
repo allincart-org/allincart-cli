@@ -184,11 +184,11 @@ func (p PlatformPlugin) GetMetaData() *extensionMetadata {
 	return &extensionMetadata{
 		Name: p.Composer.Name,
 		Label: extensionTranslated{
-			German:  p.Composer.Extra.Label["de-DE"],
+			Chinese: p.Composer.Extra.Label["de-DE"],
 			English: p.Composer.Extra.Label["en-GB"],
 		},
 		Description: extensionTranslated{
-			German:  p.Composer.Extra.Description["de-DE"],
+			Chinese: p.Composer.Extra.Description["de-DE"],
 			English: p.Composer.Extra.Description["en-GB"],
 		},
 	}

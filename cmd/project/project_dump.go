@@ -100,7 +100,7 @@ var projectDatabaseDumpCmd = &cobra.Command{
 		if anonymize {
 			pConf.Rewrite = map[string]core.Rewrite{
 				"customer": map[string]string{
-					"first_name":     "faker.Person.FirstName()",
+					"first_name":     "faker.Person.Name()",
 					"last_name":      "faker.Person.LastName()",
 					"company":        "faker.Person.Name()",
 					"title":          "faker.Person.Name()",
@@ -108,7 +108,7 @@ var projectDatabaseDumpCmd = &cobra.Command{
 					"remote_address": "faker.Internet.Ipv4()",
 				},
 				"customer_address": map[string]string{
-					"first_name":   "faker.Person.FirstName()",
+					"first_name":   "faker.Person.Name()",
 					"last_name":    "faker.Person.LastName()",
 					"company":      "faker.Person.Name()",
 					"title":        "faker.Person.Name()",
@@ -122,12 +122,12 @@ var projectDatabaseDumpCmd = &cobra.Command{
 				},
 				"newsletter_recipient": map[string]string{
 					"email":      "faker.Internet.Email()",
-					"first_name": "faker.Person.FirstName()",
+					"first_name": "faker.Person.Name()",
 					"last_name":  "faker.Person.LastName()",
 					"city":       "faker.Address.City()",
 				},
 				"order_address": map[string]string{
-					"first_name":   "faker.Person.FirstName()",
+					"first_name":   "faker.Person.Name()",
 					"last_name":    "faker.Person.LastName()",
 					"company":      "faker.Person.Name()",
 					"title":        "faker.Person.Name()",
@@ -137,7 +137,7 @@ var projectDatabaseDumpCmd = &cobra.Command{
 					"phone_number": "faker.Phone.Number()",
 				},
 				"order_customer": map[string]string{
-					"first_name":     "faker.Person.FirstName()",
+					"first_name":     "faker.Person.Name()",
 					"last_name":      "faker.Person.LastName()",
 					"company":        "faker.Person.Name()",
 					"title":          "faker.Person.Name()",
@@ -149,7 +149,7 @@ var projectDatabaseDumpCmd = &cobra.Command{
 				},
 				"user": map[string]string{
 					"username":   "faker.Person.Name()",
-					"first_name": "faker.Person.FirstName()",
+					"first_name": "faker.Person.Name()",
 					"last_name":  "faker.Person.LastName()",
 					"email":      "faker.Internet.Email()",
 				},

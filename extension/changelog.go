@@ -119,7 +119,7 @@ func parseExtensionMarkdownChangelog(ext Extension) (*ExtensionChangelog, error)
 		allChangelogsInVersion[key] = changelogVersion
 	}
 
-	return &ExtensionChangelog{German: changelogDeVersion, English: changelogEnVersion, Changelogs: allChangelogsInVersion}, nil
+	return &ExtensionChangelog{Chinese: changelogDeVersion, English: changelogEnVersion, Changelogs: allChangelogsInVersion}, nil
 }
 
 func GetConfiguredGoldMark() goldmark.Markdown {

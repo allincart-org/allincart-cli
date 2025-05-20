@@ -13,7 +13,7 @@ import (
 func (c *Client) GetMyProfile(ctx context.Context) (*MyProfile, error) {
 	errorFormat := "GetMyProfile: %v"
 
-	request, err := c.NewAuthenticatedRequest(ctx, "GET", fmt.Sprintf("%s/account/%d", ApiUrl, c.Token.UserAccountID), nil)
+	request, err := c.NewAuthenticatedRequest(ctx, "GET", fmt.Sprintf("%s/account/profile", ApiUrl), nil)
 	if err != nil {
 		return nil, fmt.Errorf(errorFormat, err)
 	}
@@ -47,66 +47,7 @@ func (c *Client) GetMyProfile(ctx context.Context) (*MyProfile, error) {
 }
 
 type MyProfile struct {
-	Id           int    `json:"id"`
-	Email        string `json:"email"`
-	CreationDate string `json:"creationDate"`
-	Banned       bool   `json:"banned"`
-	Verified     bool   `json:"verified"`
 	PersonalData struct {
-		Id         int `json:"id"`
-		Salutation struct {
-			Id          int    `json:"id"`
-			Name        string `json:"name"`
-			Description string `json:"description"`
-		} `json:"salutation"`
-		FirstName string `json:"firstName"`
-		LastName  string `json:"lastName"`
-		Locale    struct {
-			Id          int    `json:"id"`
-			Name        string `json:"name"`
-			Description string `json:"description"`
-		} `json:"locale"`
+		Name string `json:"name"`
 	} `json:"personalData"`
-	PartnerMarketingOptIn bool `json:"partnerMarketingOptIn"`
-	SelectedMembership    struct {
-		Id           int    `json:"id"`
-		CreationDate string `json:"creationDate"`
-		Active       bool   `json:"active"`
-		Member       struct {
-			Id           int         `json:"id"`
-			Email        string      `json:"email"`
-			AvatarUrl    interface{} `json:"avatarUrl"`
-			PersonalData struct {
-				Id         int `json:"id"`
-				Salutation struct {
-					Id          int    `json:"id"`
-					Name        string `json:"name"`
-					Description string `json:"description"`
-				} `json:"salutation"`
-				FirstName string `json:"firstName"`
-				LastName  string `json:"lastName"`
-				Locale    struct {
-					Id          int    `json:"id"`
-					Name        string `json:"name"`
-					Description string `json:"description"`
-				} `json:"locale"`
-			} `json:"personalData"`
-		} `json:"member"`
-		Company struct {
-			Id             int    `json:"id"`
-			Name           string `json:"name"`
-			CustomerNumber string `json:"customerNumber"`
-		} `json:"company"`
-		Roles []struct {
-			Id           int         `json:"id"`
-			Name         string      `json:"name"`
-			CreationDate string      `json:"creationDate"`
-			Company      interface{} `json:"company"`
-			Permissions  []struct {
-				Id      int    `json:"id"`
-				Context string `json:"context"`
-				Name    string `json:"name"`
-			} `json:"permissions"`
-		} `json:"roles"`
-	} `json:"selectedMembership"`
 }

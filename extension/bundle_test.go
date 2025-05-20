@@ -94,5 +94,5 @@ func TestCreateBundle(t *testing.T) {
 	// does notthing
 	bundle.Validate(getTestContext(), &ValidationContext{})
 
-	assert.Equal(t, "FALLBACK", bundle.GetMetaData().Description.German)
+	assert.Equal(t, "FALLBACK", bundle.GetMetaData().Description.Chinese)
 }

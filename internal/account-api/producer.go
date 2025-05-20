@@ -77,40 +77,9 @@ func (e ProducerEndpoint) Profile(ctx context.Context) (*Producer, error) {
 }
 
 type Producer struct {
-	Id       int    `json:"id"`
-	Prefix   string `json:"prefix"`
-	Contract struct {
-		Id   int    `json:"id"`
-		Path string `json:"path"`
-	} `json:"contract"`
+	Prefix  string `json:"prefix"`
 	Name    string `json:"name"`
-	Details []struct {
-		Id     int `json:"id"`
-		Locale struct {
-			Id   int    `json:"id"`
-			Name string `json:"name"`
-		} `json:"locale"`
-		Description string `json:"description"`
-	} `json:"details"`
-	Website              string `json:"website"`
-	Fixed                bool   `json:"fixed"`
-	HasCancelledContract bool   `json:"hasCancelledContract"`
-	IconPath             string `json:"iconPath"`
-	IconIsSet            bool   `json:"iconIsSet"`
-	AllincartID          string `json:"allincartId"`
-	UserId               int    `json:"userId"`
-	CompanyId            int    `json:"companyId"`
-	CompanyName          string `json:"companyName"`
-	SaleMail             string `json:"saleMail"`
-	SupportMail          string `json:"supportMail"`
-	RatingMail           string `json:"ratingMail"`
-	SupportedLanguages   []struct {
-		Id          int    `json:"id"`
-		Name        string `json:"name"`
-		Description string `json:"description"`
-	} `json:"supportedLanguages"`
-	IconURL           string      `json:"iconUrl"`
-	CancelledContract interface{} `json:"cancelledContract"`
+	Website string `json:"website"`
 }
 
 type ListExtensionCriteria struct {
