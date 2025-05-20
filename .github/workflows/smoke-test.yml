@@ -40,7 +40,7 @@ jobs:
           path: 'plugin'
 
       - name: Create Allincart
-        run: ./allincart-cli project create allincart 6.5.7.3
+        run: ./allincart-cli project create allincart 6.7.0.0
 
       - name: Build asset of Plugin
         run: ./allincart-cli extension zip plugin
