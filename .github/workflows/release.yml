@@ -40,42 +40,6 @@ jobs:
           node-version: 22
           registry-url: "https://registry.npmjs.org"
 
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@780ad73c034fe05a894ab1de77fa8691ad69228d # ratchet:DeterminateSystems/nix-installer-action@main
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@b5ca514318bd6ebac0fb2aedd5d36ec1b5c232a2 # ratchet:docker/setup-buildx-action@v3
-
-      - name: Install Cosign
-        uses: sigstore/cosign-installer@3454372f43399081ed03b604cb2d021dabca52bb # ratchet:sigstore/cosign-installer@v3
-
-      - name: Install Syft
-        uses: anchore/sbom-action/download-syft@e11c554f704a0b820cbf8c51673f6945e0731532 # ratchet:anchore/sbom-action/download-syft@v0.20.0
-
-      - name: Gather Frosh Homebrew Token
-        uses: octo-sts/action@6177b4481c00308b3839969c3eca88c96a91775f # ratchet:octo-sts/action@v1.0.0
-        id: sts-homebrew
-        with:
-          scope: FriendsOfAllincart/homebrew-tap
-          identity: release
-
-      - name: Gather Homebrew Token
-        uses: octo-sts/action@6177b4481c00308b3839969c3eca88c96a91775f # ratchet:octo-sts/action@v1.0.0
-        id: sts-allincart
-        with:
-          scope: allincart/homebrew-tap
-          identity: swcli
-
-      - name: Gather NUR Token
-        uses: octo-sts/action@6177b4481c00308b3839969c3eca88c96a91775f # ratchet:octo-sts/action@v1.0.0
-        id: sts-nur
-        with:
-          scope: FriendsOfAllincart/nur-packages
-          identity: release
-
-      - name: Login into Docker Hub
-        run: echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
-
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@9c156ee8a17a598857849441385a2041ef570552 # ratchet:goreleaser/goreleaser-action@v6
         with:
@@ -84,27 +48,6 @@ jobs:
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          HOMEBREW_TAP_GITHUB_TOKEN: ${{ steps.sts-homebrew.outputs.token }}
-          HOMEBREW_TAP_GITHUB_TOKEN_ALLINCART: ${{ steps.sts-allincart.outputs.token }}
-          NUR_GITHUB_TOKEN: ${{ steps.sts-nur.outputs.token }}
-          AUR_KEY: ${{ secrets.AUR_KEY }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          GORELEASER_KEY: ${{ secrets.GORELEASER_KEY }}
 
       - name: Install Cloudsmith CLI
         run: pip install --upgrade cloudsmith-cli
-
-      - name: Cloudsmith Uploads
-        env:
-          CLOUDSMITH_API_KEY: ${{ secrets.CLOUDSMITH_API_KEY }}
-        run: |
-          for filename in dist/*.deb; do
-              cloudsmith push deb friendsofallincart/stable/any-distro/any-version $filename
-          done
-          for filename in dist/*.rpm; do
-              cloudsmith push rpm friendsofallincart/stable/any-distro/any-version $filename
-          done
-          for filename in dist/*.apk; do
-              cloudsmith push alpine friendsofallincart/stable/alpine/any-version $filename
-          done
