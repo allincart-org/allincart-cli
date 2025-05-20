@@ -13,7 +13,7 @@ func GetInstalledNodeVersion() (string, error) {
 	// Check if Node.js is installed
 	nodePath, err := exec.LookPath("node")
 	if err != nil {
-		return "", fmt.Errorf("Node.js is not installed: %w", err)
+		return "", fmt.Errorf("node.js is not installed: %w", err)
 	}
 
 	// Get the Node.js version
