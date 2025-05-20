@@ -21,15 +21,34 @@ builds:
         goarch: '386'
 
 archives:
-  - name_template: >-
-      {{ .ProjectName }}_
-      {{- title .Os }}_
-      {{- if eq .Arch "amd64" }}x86_64
-      {{- else if eq .Arch "386" }}i386
-      {{- else }}{{ .Arch }}{{ end }}
+  - id: with-version
+    builds: [allincart-cli]
+    format: tar.gz
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
     files:
       - LICENSE
-      - completions/*
+      - README.md
+
+  - id: no-version
+    builds: [allincart-cli]
+    format: tar.gz
+    name_template: "{{ .ProjectName }}_{{ .Os | title }}_{{ .Arch }}"
+    files:
+      - LICENSE
+      - README.md
+
+nfpms:
+  - id: default
+    formats: [deb, rpm, apk]
+    package_name: allincart-cli
+    bindir: /usr/bin
+    builds: [allincart-cli]
+    file_name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+
+sboms:
+  - artifacts: archive
+  - id: source
+    artifacts: source
 
 release:
   github:
