@@ -35,7 +35,7 @@ jobs:
       - name: Checkout Plugin
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # ratchet:actions/checkout@v4
         with:
-          repository: 'allincart-org/allincart'
+          repository: 'allincart-org/SwagPlatformDemoData'
           ref: 'ff448d00afbf5ec13c5729d9c99a3a774566c160'
           path: 'plugin'
 
