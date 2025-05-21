@@ -12,7 +12,7 @@ import (
 func TestGetNodeVersionNotInstalled(t *testing.T) {
 	t.Setenv("PATH", "")
 	_, err := GetInstalledNodeVersion()
-	assert.ErrorContains(t, err, "Node.js is not installed")
+	assert.ErrorContains(t, err, "node.js is not installed")
 }
 
 func TestGetNodeVersion(t *testing.T) {
