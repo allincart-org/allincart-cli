@@ -34,6 +34,9 @@ jobs:
           cache: true
           check-latest: true
 
+      - name: Install Syft
+        uses: anchore/sbom-action/download-syft@e11c554f704a0b820cbf8c51673f6945e0731532 # ratchet:anchore/sbom-action/download-syft@v0.20.0
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
