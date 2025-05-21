@@ -52,7 +52,7 @@ sboms:
 
 release:
   github:
-    owner: allincart
+    owner: allincart-org
     name: allincart-cli
 
 checksum:
