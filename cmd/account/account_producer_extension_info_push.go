@@ -65,7 +65,7 @@ var accountCompanyProducerExtensionInfoPushCmd = &cobra.Command{
 		for _, info := range storeExt.Infos {
 			language := info.Locale.Name[0:2]
 
-			if language == "de" {
+			if language == "zh" {
 				info.Name = metadata.Label.Chinese
 				info.ShortDescription = metadata.Description.Chinese
 			} else {
@@ -166,20 +166,6 @@ func updateStoreInfo(ext *accountApi.Extension, zipExt extension.Extension, cfg 
 		}
 
 		ext.Localizations = newLocales
-	}
-
-	if cfg.Store.Availabilities != nil {
-		newAvailabilities := make([]accountApi.StoreAvailablity, 0)
-
-		for _, availability := range info.StoreAvailabilities {
-			for _, configLocale := range *cfg.Store.Availabilities {
-				if availability.Name == configLocale {
-					newAvailabilities = append(newAvailabilities, availability)
-				}
-			}
-		}
-
-		ext.StoreAvailabilities = newAvailabilities
 	}
 
 	if cfg.Store.Categories != nil {

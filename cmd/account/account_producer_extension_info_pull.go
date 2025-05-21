@@ -50,7 +50,6 @@ var accountCompanyProducerExtensionInfoPullCmd = &cobra.Command{
 
 		resourcesFolder := path.Join(zipExt.GetPath(), "src/Resources/store/")
 		categoryList := make([]string, 0)
-		availabilities := make([]string, 0)
 		localizations := make([]string, 0)
 		tagsZH := make([]string, 0)
 		tagsEN := make([]string, 0)
@@ -60,7 +59,7 @@ var accountCompanyProducerExtensionInfoPullCmd = &cobra.Command{
 		highlightsEN := make([]string, 0)
 		featuresZH := make([]string, 0)
 		featuresEN := make([]string, 0)
-		faqDE := make([]extension.ConfigStoreFaq, 0)
+		faqZH := make([]extension.ConfigStoreFaq, 0)
 		faqEN := make([]extension.ConfigStoreFaq, 0)
 
 		if _, err := os.Stat(resourcesFolder); os.IsNotExist(err) {
@@ -92,10 +91,6 @@ var accountCompanyProducerExtensionInfoPullCmd = &cobra.Command{
 
 		for _, localization := range storeExt.Localizations {
 			localizations = append(localizations, localization.Name)
-		}
-
-		for _, a := range storeExt.StoreAvailabilities {
-			availabilities = append(availabilities, a.Name)
 		}
 
 		storeImages, err := p.GetExtensionImages(cmd.Context(), storeExt.Id)
@@ -157,7 +152,7 @@ var accountCompanyProducerExtensionInfoPullCmd = &cobra.Command{
 				}
 
 				for _, element := range info.Faqs {
-					faqDE = append(faqDE, extension.ConfigStoreFaq{Question: element.Question, Answer: element.Answer})
+					faqZH = append(faqZH, extension.ConfigStoreFaq{Question: element.Question, Answer: element.Answer})
 				}
 			} else {
 				englishDescription = "file:src/Resources/store/description.en.html"
@@ -207,7 +202,6 @@ var accountCompanyProducerExtensionInfoPullCmd = &cobra.Command{
 		newCfg.Store.DefaultLocale = &storeExt.StandardLocale.Name
 		newCfg.Store.Type = &extType
 		newCfg.Store.AutomaticBugfixVersionCompatibility = &storeExt.AutomaticBugfixVersionCompatibility
-		newCfg.Store.Availabilities = &availabilities
 		newCfg.Store.Localizations = &localizations
 		newCfg.Store.Description = extension.ConfigTranslated[string]{Chinese: &chineseDescription, English: &englishDescription}
 		newCfg.Store.InstallationManual = extension.ConfigTranslated[string]{Chinese: &chineseInstallationManual, English: &englishInstallationManual}
@@ -216,7 +210,7 @@ var accountCompanyProducerExtensionInfoPullCmd = &cobra.Command{
 		newCfg.Store.Videos = extension.ConfigTranslated[[]string]{Chinese: &videosZH, English: &videosEN}
 		newCfg.Store.Highlights = extension.ConfigTranslated[[]string]{Chinese: &highlightsZH, English: &highlightsEN}
 		newCfg.Store.Features = extension.ConfigTranslated[[]string]{Chinese: &featuresZH, English: &featuresEN}
-		newCfg.Store.Faq = extension.ConfigTranslated[[]extension.ConfigStoreFaq]{Chinese: &faqDE, English: &faqEN}
+		newCfg.Store.Faq = extension.ConfigTranslated[[]extension.ConfigStoreFaq]{Chinese: &faqZH, English: &faqEN}
 		newCfg.Store.MetaTitle = extension.ConfigTranslated[string]{Chinese: &chineseMetaTitle, English: &englishMetaTitle}
 		newCfg.Store.MetaDescription = extension.ConfigTranslated[string]{Chinese: &chineseMetaDescription, English: &englishMetaDescription}
 		newCfg.Store.Images = nil

@@ -244,27 +244,26 @@ type Extension struct {
 		Videos             []StoreVideo `json:"videos"`
 		Faqs               []StoreFaq   `json:"faqs"`
 	} `json:"infos"`
-	PriceModels                         []interface{}      `json:"priceModels"`
-	Variants                            []interface{}      `json:"variants"`
-	StoreAvailabilities                 []StoreAvailablity `json:"storeAvailabilities"`
-	Categories                          []StoreCategory    `json:"categories"`
-	Category                            *StoreCategory     `json:"selectedFutureCategory"`
-	Addons                              []interface{}      `json:"addons"`
-	LastChange                          string             `json:"lastChange"`
-	CreationDate                        string             `json:"creationDate"`
-	Support                             bool               `json:"support"`
-	SupportOnlyCommercial               bool               `json:"supportOnlyCommercial"`
-	IconPath                            string             `json:"iconPath"`
-	IconIsSet                           bool               `json:"iconIsSet"`
-	ExamplePageUrl                      string             `json:"examplePageUrl"`
-	Demos                               []interface{}      `json:"demos"`
-	Localizations                       []Locale           `json:"localizations"`
-	LatestBinary                        interface{}        `json:"latestBinary"`
-	MigrationSupport                    bool               `json:"migrationSupport"`
-	AutomaticBugfixVersionCompatibility bool               `json:"automaticBugfixVersionCompatibility"`
-	HiddenInStore                       bool               `json:"hiddenInStore"`
-	Certification                       interface{}        `json:"certification"`
-	ProductType                         *StoreProductType  `json:"productType"`
+	PriceModels                         []interface{}     `json:"priceModels"`
+	Variants                            []interface{}     `json:"variants"`
+	Categories                          []StoreCategory   `json:"categories"`
+	Category                            *StoreCategory    `json:"selectedFutureCategory"`
+	Addons                              []interface{}     `json:"addons"`
+	LastChange                          string            `json:"lastChange"`
+	CreationDate                        string            `json:"creationDate"`
+	Support                             bool              `json:"support"`
+	SupportOnlyCommercial               bool              `json:"supportOnlyCommercial"`
+	IconPath                            string            `json:"iconPath"`
+	IconIsSet                           bool              `json:"iconIsSet"`
+	ExamplePageUrl                      string            `json:"examplePageUrl"`
+	Demos                               []interface{}     `json:"demos"`
+	Localizations                       []Locale          `json:"localizations"`
+	LatestBinary                        interface{}       `json:"latestBinary"`
+	MigrationSupport                    bool              `json:"migrationSupport"`
+	AutomaticBugfixVersionCompatibility bool              `json:"automaticBugfixVersionCompatibility"`
+	HiddenInStore                       bool              `json:"hiddenInStore"`
+	Certification                       interface{}       `json:"certification"`
+	ProductType                         *StoreProductType `json:"productType"`
 	Status                              struct {
 		Name string `json:"name"`
 	} `json:"status"`
@@ -300,6 +299,58 @@ type CreateExtensionRequest struct {
 		Name string `json:"name"`
 	} `json:"generation"`
 	ProducerID int `json:"producerId"`
+}
+
+const (
+	GenerationClassic  = "classic"
+	GenerationThemes   = "themes"
+	GenerationApps     = "apps"
+	GenerationPlatform = "platform"
+)
+
+func (e ProducerEndpoint) CreateExtension(ctx context.Context, newExtension CreateExtensionRequest) (*Extension, error) {
+	requestBody, err := json.Marshal(newExtension)
+	if err != nil {
+		return nil, err
+	}
+
+	// Create it
+	r, err := e.c.NewAuthenticatedRequest(ctx, "POST", fmt.Sprintf("%s/plugins", ApiUrl), bytes.NewBuffer(requestBody))
+	if err != nil {
+		return nil, err
+	}
+
+	body, err := e.c.doRequest(r)
+	if err != nil {
+		return nil, err
+	}
+
+	var extension Extension
+	if err := json.Unmarshal(body, &extension); err != nil {
+		return nil, fmt.Errorf("create_extension: %v", err)
+	}
+
+	extension.Name = newExtension.Name
+
+	// Patch the name
+	err = e.UpdateExtension(ctx, &extension)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &extension, nil
+}
+
+func (e ProducerEndpoint) DeleteExtension(ctx context.Context, id int) error {
+	r, err := e.c.NewAuthenticatedRequest(ctx, "DELETE", fmt.Sprintf("%s/plugins/%d", ApiUrl, id), nil)
+	if err != nil {
+		return err
+	}
+
+	_, err = e.c.doRequest(r)
+
+	return err
 }
 
 func (e ProducerEndpoint) UpdateExtension(ctx context.Context, extension *Extension) error {
@@ -352,28 +403,15 @@ type SoftwareVersion struct {
 }
 
 type Locale struct {
-	Id   int    `json:"id"`
 	Name string `json:"name"`
 }
 
 type StoreAvailablity struct {
-	Id          int    `json:"id"`
-	Name        string `json:"name"`
-	Description string `json:"description"`
+	Name string `json:"name"`
 }
 
 type StoreCategory struct {
-	Id          int         `json:"id"`
-	Name        string      `json:"name"`
-	Description string      `json:"description"`
-	Parent      interface{} `json:"parent"`
-	Position    int         `json:"position"`
-	Public      bool        `json:"public"`
-	Visible     bool        `json:"visible"`
-	Suggested   bool        `json:"suggested"`
-	Applicable  bool        `json:"applicable"`
-	Details     interface{} `json:"details"`
-	Active      bool        `json:"active"`
+	Name string `json:"name"`
 }
 
 type StoreTag struct {
@@ -385,9 +423,7 @@ type StoreVideo struct {
 }
 
 type StoreProductType struct {
-	Id          int    `json:"id"`
-	Name        string `json:"name"`
-	Description string `json:"description"`
+	Name string `json:"name"`
 }
 
 type StoreFaq struct {
@@ -396,47 +432,9 @@ type StoreFaq struct {
 }
 
 type ExtensionGeneralInformation struct {
-	Categories       []StoreCategory `json:"categories"`
-	FutureCategories []StoreCategory `json:"futureCategories"`
-	Addons           interface{}     `json:"addons"`
-	Generations      []struct {
-		Id          int    `json:"id"`
-		Name        string `json:"name"`
-		Description string `json:"description"`
-	} `json:"generations"`
-	ActivationStatus []struct {
-		Id          int    `json:"id"`
-		Name        string `json:"name"`
-		Description string `json:"description"`
-	} `json:"activationStatus"`
-	ApprovalStatus []struct {
-		Id          int    `json:"id"`
-		Name        string `json:"name"`
-		Description string `json:"description"`
-	} `json:"approvalStatus"`
-	LifecycleStatus []struct {
-		Id          int    `json:"id"`
-		Name        string `json:"name"`
-		Description string `json:"description"`
-	} `json:"lifecycleStatus"`
-	BinaryStatus []struct {
-		Id          int    `json:"id"`
-		Name        string `json:"name"`
-		Description string `json:"description"`
-	} `json:"binaryStatus"`
-	Locales  []Locale `json:"locales"`
-	Licenses []struct {
-		Id          int    `json:"id"`
-		Name        string `json:"name"`
-		Description string `json:"description"`
-	} `json:"licenses"`
-	StoreAvailabilities  []StoreAvailablity  `json:"storeAvailabilities"`
-	PriceModels          []interface{}       `json:"priceModels"`
-	SoftwareVersions     SoftwareVersionList `json:"softwareVersions"`
-	DemoTypes            interface{}         `json:"demoTypes"`
-	Localizations        []Locale            `json:"localizations"`
-	ProductTypes         []StoreProductType  `json:"productTypes"`
-	ReleaseRequestStatus interface{}         `json:"releaseRequestStatus"`
+	FutureCategories []StoreCategory    `json:"futureCategories"`
+	Locales          []Locale           `json:"locales"`
+	ProductTypes     []StoreProductType `json:"productTypes"`
 }
 
 func (e ProducerEndpoint) GetExtensionGeneralInfo(ctx context.Context) (*ExtensionGeneralInformation, error) {
