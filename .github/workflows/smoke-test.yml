@@ -36,7 +36,7 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # ratchet:actions/checkout@v4
         with:
           repository: 'allincart-org/SwagPlatformDemoData'
-          ref: '27d8dda5d01db912529690ac9733733fb319546c'
+          ref: '2667c84cb9e592f943a1f310cbd6f8b3bcb1e994'
           path: 'plugin'
 
       - name: Create Allincart
