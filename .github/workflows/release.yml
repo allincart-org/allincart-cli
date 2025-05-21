@@ -41,9 +41,9 @@ jobs:
           registry-url: "https://registry.npmjs.org"
 
       - name: Run GoReleaser
-        uses: goreleaser/goreleaser-action@9c156ee8a17a598857849441385a2041ef570552 # ratchet:goreleaser/goreleaser-action@v6
+        uses: goreleaser/goreleaser-action@v6
         with:
-          distribution: goreleaser-pro
+          distribution: goreleaser
           version: '~> v2'
           args: release --clean
         env:
