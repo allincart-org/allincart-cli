@@ -98,12 +98,12 @@ func parseExtensionMarkdownChangelog(ext Extension) (*ExtensionChangelog, error)
 		return nil, fmt.Errorf("english changelog is missing")
 	}
 
-	changelogDe, ok := changelogs["zh-CN"]
+	changelogZh, ok := changelogs["zh-CN"]
 	if !ok {
-		changelogDe = changelogEn
+		changelogZh = changelogEn
 	}
 
-	changelogDeVersion, ok := changelogDe[v.String()]
+	changelogDeVersion, ok := changelogZh[v.String()]
 	if !ok {
 		return nil, fmt.Errorf("german changelog in version %s is missing", v.String())
 	}
