@@ -86,7 +86,7 @@ func TestMigrateComposerJson(t *testing.T) {
 		assert.Equal(t, true, symfonyConfig["allow-contrib"])
 		endpoints, ok := symfonyConfig["endpoint"].([]interface{})
 		require.True(t, ok)
-		assert.Contains(t, endpoints, "https://raw.githubusercontent.com/allincart/recipes/flex/main/index.json")
+		assert.Contains(t, endpoints, "https://raw.githubusercontent.com/allincart-org/recipes/flex/main/index.json")
 		assert.Contains(t, endpoints, "flex://defaults")
 
 		// Verify repository configuration

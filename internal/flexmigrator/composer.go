@@ -37,7 +37,7 @@ func MigrateComposerJson(project string) error {
 	composerJson.Extra["symfony"] = map[string]any{
 		"allow-contrib": true,
 		"endpoint": []string{
-			"https://raw.githubusercontent.com/allincart/recipes/flex/main/index.json",
+			"https://raw.githubusercontent.com/allincart-org/recipes/flex/main/index.json",
 			"flex://defaults",
 		},
 	}

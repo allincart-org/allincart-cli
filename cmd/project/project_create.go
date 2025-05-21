@@ -307,7 +307,7 @@ func generateComposerJson(ctx context.Context, version string, rc bool) (string,
         "symfony": {
             "allow-contrib": true,
             "endpoint": [
-                "https://raw.githubusercontent.com/allincart/recipes/flex/main/index.json",
+                "https://raw.githubusercontent.com/allincart-org/recipes/flex/main/index.json",
                 "flex://defaults"
             ]
         }
