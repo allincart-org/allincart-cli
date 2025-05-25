@@ -4,8 +4,107 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d8a4eac97b30d8054cc1b3b1664e6d94",
+    "content-hash": "471ecd09ccfba34e262a3a01ff79c5d4",
     "packages": [
+        {
+            "name": "allincart/allincart-rector",
+            "version": "0.5.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/allincart-org/allincart-rector.git",
+                "reference": "b7c0a5f2e259f4b22adf99ee37d818448917833d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/allincart-org/allincart-rector/zipball/b7c0a5f2e259f4b22adf99ee37d818448917833d",
+                "reference": "b7c0a5f2e259f4b22adf99ee37d818448917833d",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.1",
+                "rector/rector": "~2.0.0"
+            },
+            "conflict": {
+                "rector/rector": "<2.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.57",
+                "phpunit/phpunit": "^9.5",
+                "symplify/easy-coding-standard": "~11.2"
+            },
+            "type": "rector-extension",
+            "extra": {
+                "rector": {
+                    "includes": [
+                        "config/config.php"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Frosh\\Rector\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "mit"
+            ],
+            "description": "Allincart specific Rector",
+            "support": {
+                "issues": "https://github.com/allincart-org/allincart-rector/issues",
+                "source": "https://github.com/allincart-org/allincart-rector/tree/0.5.5"
+            },
+            "time": "2025-05-25T07:35:50+00:00"
+        },
+        {
+            "name": "allincart/phpstan-allincart",
+            "version": "0.1.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/allincart-org/phpstan-allincart.git",
+                "reference": "f27b496af779bbf83f89a247b4a179bda85768fd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/allincart-org/phpstan-allincart/zipball/f27b496af779bbf83f89a247b4a179bda85768fd",
+                "reference": "f27b496af779bbf83f89a247b4a179bda85768fd",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.2",
+                "phpstan/phpstan": "^2",
+                "symfony/polyfill-php84": "*"
+            },
+            "require-dev": {
+                "allincart/core": "^6.7",
+                "friendsofphp/php-cs-fixer": "v3.64.0",
+                "phpstan/extension-installer": "*",
+                "phpunit/phpunit": "~11.3.6"
+            },
+            "type": "library",
+            "extra": {
+                "phpstan": {
+                    "includes": [
+                        "rules.neon"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Allincart\\PhpStan\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PhpStan Rules for Allincart",
+            "support": {
+                "issues": "https://github.com/allincart-org/phpstan-allincart/issues",
+                "source": "https://github.com/allincart-org/phpstan-allincart/tree/0.1.9"
+            },
+            "time": "2025-05-25T07:40:40+00:00"
+        },
         {
             "name": "clue/ndjson-react",
             "version": "v1.3.0",
@@ -509,56 +608,6 @@
             "time": "2025-03-31T18:40:42+00:00"
         },
         {
-            "name": "frosh/allincart-rector",
-            "version": "0.5.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/FriendsOfAllincart/allincart-rector.git",
-                "reference": "77b7bb7f7110ee6df3c6c0e181dff82cfbeef6a6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfAllincart/allincart-rector/zipball/77b7bb7f7110ee6df3c6c0e181dff82cfbeef6a6",
-                "reference": "77b7bb7f7110ee6df3c6c0e181dff82cfbeef6a6",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^8.1",
-                "rector/rector": "~2.0.0"
-            },
-            "conflict": {
-                "rector/rector": "<2.0"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.57",
-                "phpunit/phpunit": "^9.5",
-                "symplify/easy-coding-standard": "~11.2"
-            },
-            "type": "rector-extension",
-            "extra": {
-                "rector": {
-                    "includes": [
-                        "config/config.php"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Frosh\\Rector\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "mit"
-            ],
-            "description": "Allincart specific Rector",
-            "support": {
-                "issues": "https://github.com/FriendsOfAllincart/allincart-rector/issues",
-                "source": "https://github.com/FriendsOfAllincart/allincart-rector/tree/0.5.5"
-            },
-            "time": "2025-04-15T08:11:30+00:00"
-        },
-        {
             "name": "phpstan/extension-installer",
             "version": "1.4.3",
             "source": {
@@ -608,16 +657,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.1.15",
+            "version": "2.1.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "402d11c1aa40ae2e1c3a512e6a4edb957527b20b"
+                "reference": "89b5ef665716fa2a52ecd2633f21007a6a349053"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/402d11c1aa40ae2e1c3a512e6a4edb957527b20b",
-                "reference": "402d11c1aa40ae2e1c3a512e6a4edb957527b20b",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/89b5ef665716fa2a52ecd2633f21007a6a349053",
+                "reference": "89b5ef665716fa2a52ecd2633f21007a6a349053",
                 "shasum": ""
             },
             "require": {
@@ -662,7 +711,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-05-14T11:16:08+00:00"
+            "time": "2025-05-21T20:55:28+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
@@ -1586,55 +1635,6 @@
                 }
             ],
             "time": "2024-07-03T04:53:05+00:00"
-        },
-        {
-            "name": "allincartlabs/phpstan-allincart",
-            "version": "0.1.9",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/allincartLabs/phpstan-allincart.git",
-                "reference": "0bb7815475e05a54ab8ea86990e1a8c5d77f0cdd"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/allincartLabs/phpstan-allincart/zipball/0bb7815475e05a54ab8ea86990e1a8c5d77f0cdd",
-                "reference": "0bb7815475e05a54ab8ea86990e1a8c5d77f0cdd",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^8.2",
-                "phpstan/phpstan": "^2",
-                "symfony/polyfill-php84": "*"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "v3.64.0",
-                "phpstan/extension-installer": "*",
-                "phpunit/phpunit": "~11.3.6",
-                "allincart/core": "^6.6"
-            },
-            "type": "library",
-            "extra": {
-                "phpstan": {
-                    "includes": [
-                        "rules.neon"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Allincart\\PhpStan\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "PhpStan Rules for Allincart",
-            "support": {
-                "issues": "https://github.com/allincartLabs/phpstan-allincart/issues",
-                "source": "https://github.com/allincartLabs/phpstan-allincart/tree/0.1.9"
-            },
-            "time": "2025-03-12T14:11:05+00:00"
         },
         {
             "name": "spaze/phpstan-disallowed-calls",

@@ -2,13 +2,13 @@
     "require": {
         "friendsofphp/php-cs-fixer": "^3.68",
         "phpstan/phpstan": "^2",
-        "allincartlabs/phpstan-allincart": "*",
         "phpstan/extension-installer": "*",
         "phpstan/phpstan-symfony": "*",
         "rector/rector": "^2.0",
-        "frosh/allincart-rector": "^0.5.0",
         "phpstan/phpstan-deprecation-rules": "^2.0",
-        "spaze/phpstan-disallowed-calls": "^4.0"
+        "spaze/phpstan-disallowed-calls": "^4.0",
+        "allincart/allincart-rector": "^0.5.0",
+        "allincart/phpstan-allincart": "*"
     },
     "replace": {
         "symfony/polyfill-ctype": "*",
