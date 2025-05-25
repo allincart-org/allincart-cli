@@ -26,7 +26,7 @@ var accountCompanyProducerExtensionListCmd = &cobra.Command{
 
 		if len(listExtensionSearch) > 0 {
 			criteria.Search = listExtensionSearch
-			criteria.OrderBy = "name"
+			criteria.OrderBy = "productNumber"
 			criteria.OrderSequence = "asc"
 		}
 
@@ -52,7 +52,7 @@ var accountCompanyProducerExtensionListCmd = &cobra.Command{
 			_ = table.Append([]string{
 				strconv.FormatInt(int64(extension.Id), 10),
 				extension.Name,
-				extension.Generation.Description,
+				extension.SubType,
 				compatible,
 				extension.Status.Name,
 			})

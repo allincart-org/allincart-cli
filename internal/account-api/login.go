@@ -91,7 +91,7 @@ func NewApi(ctx context.Context, config AccountConfig) (*Client, error) {
 	if err := saveApiTokenToTokenCache(client); err != nil {
 		logging.FromContext(ctx).Errorf(fmt.Sprintf("Cannot token cache: %v", err))
 	}
-
+	SetTenantType(token.TenantType)
 	return client, nil
 }
 
@@ -136,7 +136,7 @@ type token struct {
 	Expire        tokenExpire `json:"expire"`
 	UserAccountID int         `json:"userAccountId"`
 	UserID        int         `json:"userId"`
-	LegacyLogin   bool        `json:"legacyLogin"`
+	TenantType    string      `json:"tenantType"`
 }
 
 type tokenExpire struct {

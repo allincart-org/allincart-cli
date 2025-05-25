@@ -14,9 +14,13 @@ import (
 )
 
 var httpUserAgent = "allincart-cli/0.0.0"
+var tenantType = "company"
 
 func SetUserAgent(userAgent string) {
 	httpUserAgent = userAgent
+}
+func SetTenantType(t string) {
+	tenantType = t
 }
 
 type Client struct {
@@ -35,6 +39,7 @@ func (c *Client) NewAuthenticatedRequest(ctx context.Context, method, path strin
 	r.Header.Set("content-type", "application/json")
 	r.Header.Set("accept", "application/json")
 	r.Header.Set("x-allincart-token", c.Token.Token)
+	r.Header.Set("tenantType", tenantType)
 	r.Header.Set("user-agent", httpUserAgent)
 
 	return r, nil

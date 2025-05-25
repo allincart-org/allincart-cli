@@ -83,7 +83,7 @@ type ConfigStore struct {
 	// Specifies the default locale.
 	DefaultLocale *string `yaml:"default_locale" jsonschema:"enum=zh_CN,enum=en_GB"`
 	// Specifies the languages the extension is translated.
-	Localizations *[]string `yaml:"localizations" jsonschema:"enum=zh_CN,enum=en_GB,enum=bs_BA,enum=bg_BG,enum=cs_CZ,enum=da_DK,enum=de_CH,enum=el_GR,enum=en_US,enum=es_ES,enum=fi_FI,enum=fr_FR,enum=hi_IN,enum=hr_HR,enum=hu_HU,enum=hy,enum=id_ID,enum=it_IT,enum=ko_KR,enum=lv_LV,enum=ms_MY,enum=nl_NL,enum=pl_PL,enum=pt_BR,enum=pt_PT,enum=ro_RO,enum=ru_RU,enum=sk_SK,enum=sl_SI,enum=sr_RS,enum=sv_SE,enum=th_TH,enum=tr_TR,enum=uk_UA,enum=vi_VN,enum=zh_CN,enum=zh_TW"`
+	Localizations *[]string `yaml:"localizations" jsonschema:"enum=zh_CN,enum=en_GB"`
 	// Specifies the categories.
 	Categories *[]string `yaml:"categories" jsonschema:"enum=Administration,enum=SEOOptimierung,enum=Bonitaetsprüfung,enum=Rechtssicherheit,enum=Auswertung,enum=KommentarFeedback,enum=Tracking,enum=Integration,enum=PreissuchmaschinenPortale,enum=Warenwirtschaft,enum=Versand,enum=Bezahlung,enum=StorefrontDetailanpassungen,enum=Sprache,enum=Suche,enum=HeaderFooter,enum=Detailseite,enum=MenueKategorien,enum=Bestellprozess,enum=KundenkontoPersonalisierung,enum=Sonderfunktionen,enum=Themes,enum=Branche,enum=Home+Furnishings,enum=FashionBekleidung,enum=GartenNatur,enum=KosmetikGesundheit,enum=EssenTrinken,enum=KinderPartyGeschenke,enum=SportLifestyleReisen,enum=Bauhaus,enum=Elektronik,enum=Geraete,enum=Heimkueche,enum=Hobby,enum=Kueche,enum=Lebensmittel,enum=Medizin,enum=Mode,enum=Musik,enum=Spiel,enum=Technik,enum=Umweltschutz,enum=Wohnen,enum=Zubehoer"`
 	// Specifies the type of the extension.
