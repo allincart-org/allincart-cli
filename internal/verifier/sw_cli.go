@@ -17,9 +17,7 @@ func (s SWCLI) Check(ctx context.Context, check *Check, config ToolConfig) error
 		return nil
 	}
 
-	validationContext := extension.ValidationContext{Extension: config.Extension}
-
-	config.Extension.Validate(ctx, &validationContext)
+	validationContext := extension.RunValidation(ctx, config.Extension)
 
 	if config.InputWasDirectory {
 		validationContext.ApplyIgnores([]extension.ConfigValidationIgnoreItem{
