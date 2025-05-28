@@ -121,7 +121,7 @@ type Translatable interface {
 }
 
 type ConfigTranslated[T Translatable] struct {
-	Chinese *T `yaml:"de,omitempty"`
+	Chinese *T `yaml:"zh,omitempty"`
 	English *T `yaml:"en,omitempty"`
 }
 
@@ -142,12 +142,12 @@ type ConfigStoreImage struct {
 }
 
 type ConfigStoreImageActivate struct {
-	Chinese bool `yaml:"de"`
+	Chinese bool `yaml:"zh"`
 	English bool `yaml:"en"`
 }
 
 type ConfigStoreImagePreview struct {
-	Chinese bool `yaml:"de"`
+	Chinese bool `yaml:"zh"`
 	English bool `yaml:"en"`
 }
 

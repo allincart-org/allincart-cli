@@ -5,11 +5,10 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+
 	"net/url"
 	"strconv"
 	"strings"
-
-	"github.com/gorilla/schema"
 )
 
 type ProducerEndpoint struct {
@@ -77,22 +76,43 @@ type Producer struct {
 	Name    string `json:"name"`
 	Website string `json:"website"`
 }
+type Query struct {
+	Type  string      `json:"type"`
+	Field string      `json:"field"`
+	Value interface{} `json:"value"` // 用 interface{} 支持不同类型值（如 int、string）
+}
 
 type ListExtensionCriteria struct {
 	Limit         int    `schema:"limit,omitempty"`
 	Offset        int    `schema:"offset,omitempty"`
 	OrderBy       string `schema:"orderBy,omitempty"`
 	OrderSequence string `schema:"orderSequence,omitempty"`
-	Search        string `schema:"search,omitempty"`
+	Query         *Query `json:"query,omitempty"`
 }
 
 func (e ProducerEndpoint) Extensions(ctx context.Context, criteria *ListExtensionCriteria) ([]Extension, error) {
-	encoder := schema.NewEncoder()
 	form := url.Values{}
 	form.Set("producerId", strconv.FormatInt(int64(e.GetId()), 10))
-	err := encoder.Encode(criteria, form)
-	if err != nil {
-		return nil, fmt.Errorf("list_extensions: %v", err)
+
+	if criteria.Limit != 0 {
+		form.Set("limit", strconv.Itoa(criteria.Limit))
+	}
+	if criteria.Offset != 0 {
+		form.Set("offset", strconv.Itoa(criteria.Offset))
+	}
+	if criteria.OrderBy != "" {
+		form.Set("orderBy", criteria.OrderBy)
+	}
+	if criteria.OrderSequence != "" {
+		form.Set("orderSequence", criteria.OrderSequence)
+	}
+
+	if criteria.Query != nil {
+		query, err := json.Marshal(criteria.Query)
+		if err != nil {
+			return nil, fmt.Errorf("list_extensions: %v", err)
+		}
+		form.Set("query", string(query))
 	}
 
 	r, err := e.c.NewAuthenticatedRequest(ctx, "GET", fmt.Sprintf("%s/plugins?%s", ApiUrl, form.Encode()), nil)
@@ -115,7 +135,11 @@ func (e ProducerEndpoint) Extensions(ctx context.Context, criteria *ListExtensio
 
 func (e ProducerEndpoint) GetExtensionByName(ctx context.Context, name string) (*Extension, error) {
 	criteria := ListExtensionCriteria{
-		Search: name,
+		Query: &Query{
+			Type:  "equals",
+			Field: "productNumber",
+			Value: name,
+		},
 	}
 
 	extensions, err := e.Extensions(ctx, &criteria)
@@ -160,7 +184,6 @@ type Extension struct {
 	SubType        string `json:"subType"`
 	StandardLocale Locale `json:"standardLocale"`
 	Infos          []*struct {
-		Id                 int          `json:"id"`
 		Locale             Locale       `json:"locale"`
 		Name               string       `json:"name"`
 		Description        string       `json:"description"`
@@ -248,7 +271,6 @@ func (e ProducerEndpoint) UpdateExtension(ctx context.Context, extension *Extens
 	if err != nil {
 		return err
 	}
-
 	// Patch the name
 	r, err := e.c.NewAuthenticatedRequest(ctx, "PUT", fmt.Sprintf("%s/plugins/%d", ApiUrl, extension.Id), bytes.NewBuffer(requestBody))
 	if err != nil {
@@ -283,13 +305,8 @@ func (e ProducerEndpoint) GetSoftwareVersions(ctx context.Context, generation st
 }
 
 type SoftwareVersion struct {
-	Id          int         `json:"id"`
-	Name        string      `json:"name"`
-	Parent      interface{} `json:"parent"`
-	Selectable  bool        `json:"selectable"`
-	Major       *string     `json:"major"`
-	ReleaseDate *string     `json:"releaseDate"`
-	Public      bool        `json:"public"`
+	Name       string `json:"name"`
+	Selectable bool   `json:"selectable"`
 }
 
 type Locale struct {

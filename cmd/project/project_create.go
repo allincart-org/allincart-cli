@@ -210,7 +210,9 @@ func init() {
 }
 
 func fetchAvailableAllincartVersions(ctx context.Context) ([]string, error) {
-	r, err := http.NewRequestWithContext(ctx, http.MethodGet, "https://raw.githubusercontent.com/allincart-org/allincart-static-data/main/data/releases.json", http.NoBody)
+	r, err := http.NewRequestWithContext(ctx, http.MethodGet,
+		"https://raw.githubusercontent.com/allincart-org/allincart-static-data/main/data/releases.json",
+		http.NoBody)
 	if err != nil {
 		return nil, err
 	}
@@ -219,7 +221,6 @@ func fetchAvailableAllincartVersions(ctx context.Context) ([]string, error) {
 	if err != nil {
 		return nil, err
 	}
-
 	defer func() {
 		if err := resp.Body.Close(); err != nil {
 			logging.FromContext(ctx).Errorf("fetchAvailableAllincartVersions: %v", err)
@@ -231,13 +232,21 @@ func fetchAvailableAllincartVersions(ctx context.Context) ([]string, error) {
 		return nil, err
 	}
 
-	var releases []string
+	type Release struct {
+		Version string `json:"version"`
+	}
 
+	var releases []Release
 	if err := json.Unmarshal(content, &releases); err != nil {
 		return nil, err
 	}
 
-	return releases, nil
+	versions := make([]string, len(releases))
+	for i, release := range releases {
+		versions[i] = release.Version
+	}
+
+	return versions, nil
 }
 
 func generateComposerJson(ctx context.Context, version string, rc bool) (string, error) {
