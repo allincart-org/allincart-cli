@@ -18,7 +18,6 @@ require (
 	github.com/go-sql-driver/mysql v1.9.2
 	github.com/google/generative-ai-go v0.20.1
 	github.com/google/uuid v1.6.0
-	github.com/gorilla/schema v1.4.1
 	github.com/invopop/jsonschema v0.13.0
 	github.com/joho/godotenv v1.5.1
 	github.com/microcosm-cc/bluemonday v1.0.27
