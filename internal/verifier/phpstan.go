@@ -128,7 +128,7 @@ func (p PhpStan) Format(ctx context.Context, config ToolConfig, dryRun bool) err
 	return nil
 }
 
-var tagPartRegex = regexp.MustCompile("tag:v[0-9]+\\.[0-9]+\\.[0-9]+")
+var tagPartRegex = regexp.MustCompile(`tag:v[0-9]+\\.[0-9]+\\.[0-9]+`)
 var parameterRemovedRegex = regexp.MustCompile("Parameter.*will be removed")
 
 func (p PhpStan) isUselessDeprecation(message string) bool {
