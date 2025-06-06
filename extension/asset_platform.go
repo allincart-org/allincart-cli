@@ -122,7 +122,7 @@ func BuildAssetsForExtensions(ctx context.Context, sources []asset.Source, asset
 				}
 			}
 
-			envList := []string{fmt.Sprintf("PROJECT_ROOT=%s", allincartRoot)}
+			envList := []string{fmt.Sprintf("PROJECT_ROOT=%s", allincartRoot), fmt.Sprintf("ADMIN_ROOT=%s", PlatformPath(allincartRoot, "Administration", ""))}
 
 			if !assetConfig.ContributeProject {
 				envList = append(envList, "ALLINCART_ADMIN_BUILD_ONLY_EXTENSIONS=1", "ALLINCART_ADMIN_SKIP_SOURCEMAP_GENERATION=1")
