@@ -12,20 +12,12 @@ type AttributeEntityEncodingFromTo struct {
 }
 
 var fromTextToEntities = []AttributeEntityEncodingFromTo{
-	{From: "&", To: "&amp;"},
 	{From: "\"", To: "&quot;"},
-	{From: "+", To: "&#43;"},
-	{From: "<", To: "&lt;"},
-	{From: ">", To: "&gt;"},
 }
 var fromEntitiesToText = []AttributeEntityEncodingFromTo{
 	{From: "&#34;", To: "\""},
 	{From: "&quot;", To: "\""},
 	{From: "&#39;", To: "\\"},
-	{From: "&#43;", To: "+"},
-	{From: "&lt;", To: "<"},
-	{From: "&gt;", To: ">"},
-	{From: "&amp;", To: "&"},
 }
 
 const htmlCommentStart = "<!--"
