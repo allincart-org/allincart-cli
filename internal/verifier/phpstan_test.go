@@ -2,6 +2,8 @@ package verifier
 
 import (
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestPhpStan_isUselessDeprecation(t *testing.T) {
@@ -60,9 +62,8 @@ func TestPhpStan_isUselessDeprecation(t *testing.T) {
 	p := PhpStan{}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := p.isUselessDeprecation(tt.message); got != tt.want {
-				t.Errorf("PhpStan.isUselessDeprecation() = %v, want %v", got, tt.want)
-			}
+			got := p.isUselessDeprecation(tt.message)
+			assert.Equal(t, tt.want, got)
 		})
 	}
 }
