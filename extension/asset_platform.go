@@ -402,7 +402,7 @@ func InstallNPMDependencies(path string, packageJsonData NpmPackage, additionalP
 	installCmd.Env = append(installCmd.Env, "PUPPETEER_SKIP_DOWNLOAD=1", "NPM_CONFIG_ENGINE_STRICT=false", "NPM_CONFIG_FUND=false", "NPM_CONFIG_AUDIT=false", "NPM_CONFIG_UPDATE_NOTIFIER=false")
 
 	if err := installCmd.Run(); err != nil {
-		return err
+		return fmt.Errorf("installing dependencies for %s failed with error: %w", path, err)
 	}
 
 	return nil
