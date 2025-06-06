@@ -182,8 +182,8 @@ func runDefaultValidate(vc *ValidationContext) {
 		vc.AddError("metadata.description", "description is not translated in english")
 	}
 
-	if len([]rune(metaData.Description.Chinese)) < 150 || len([]rune(metaData.Description.Chinese)) > 185 {
-		vc.AddError("metadata.description", fmt.Sprintf("the german description with length of %d should have a length from 150 up to 185 characters.", len([]rune(metaData.Description.Chinese))))
+	if len([]rune(metaData.Description.Chinese)) < 100 || len([]rune(metaData.Description.Chinese)) > 200 {
+		vc.AddError("metadata.description", fmt.Sprintf("the chinese description with length of %d should have a length from 150 up to 185 characters.", len([]rune(metaData.Description.Chinese))))
 	}
 
 	if len(metaData.Description.English) < 150 || len(metaData.Description.English) > 185 {
