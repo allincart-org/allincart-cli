@@ -211,7 +211,7 @@ func init() {
 
 func fetchAvailableAllincartVersions(ctx context.Context) ([]string, error) {
 	r, err := http.NewRequestWithContext(ctx, http.MethodGet,
-		"https://raw.githubusercontent.com/allincart-org/allincart-static-data/main/data/releases.json",
+		"https://raw.githubusercontent.com/allincart-org/allincart/trunk/releases.json",
 		http.NoBody)
 	if err != nil {
 		return nil, err

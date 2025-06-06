@@ -268,6 +268,7 @@ func (e ProducerEndpoint) DeleteExtension(ctx context.Context, id int) error {
 
 func (e ProducerEndpoint) UpdateExtension(ctx context.Context, extension *Extension) error {
 	requestBody, err := json.Marshal(extension)
+
 	if err != nil {
 		return err
 	}
