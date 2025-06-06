@@ -243,7 +243,7 @@ func (m *mockExtension) GetChangelog() (*ExtensionChangelog, error) {
 		English: "Changes",
 		Changelogs: map[string]string{
 			"en-GB": "English changelog",
-			"zh-CN": "German changelog",
+			"zh-CN": "Chinese changelog",
 		},
 	}, nil
 }

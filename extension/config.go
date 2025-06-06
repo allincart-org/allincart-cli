@@ -89,11 +89,11 @@ type ConfigExtraBundle struct {
 
 type ConfigStore struct {
 	// Specifies the visibility in stores.
-	Availabilities *[]string `yaml:"availabilities" jsonschema:"enum=German,enum=International"`
+	Availabilities *[]string `yaml:"availabilities" jsonschema:"enum=Chinese,enum=International"`
 	// Specifies the default locale.
-	DefaultLocale *string `yaml:"default_locale" jsonschema:"enum=de_DE,enum=en_GB"`
+	DefaultLocale *string `yaml:"default_locale" jsonschema:"enum=zh_CN,enum=en_GB"`
 	// Specifies the languages the extension is translated.
-	Localizations *[]string `yaml:"localizations" jsonschema:"enum=de_DE,enum=en_GB,enum=bs_BA,enum=bg_BG,enum=cs_CZ,enum=da_DK,enum=de_CH,enum=el_GR,enum=en_US,enum=es_ES,enum=fi_FI,enum=fr_FR,enum=hi_IN,enum=hr_HR,enum=hu_HU,enum=hy,enum=id_ID,enum=it_IT,enum=ko_KR,enum=lv_LV,enum=ms_MY,enum=nl_NL,enum=pl_PL,enum=pt_BR,enum=pt_PT,enum=ro_RO,enum=ru_RU,enum=sk_SK,enum=sl_SI,enum=sr_RS,enum=sv_SE,enum=th_TH,enum=tr_TR,enum=uk_UA,enum=vi_VN,enum=zh_CN,enum=zh_TW"`
+	Localizations *[]string `yaml:"localizations" jsonschema:"enum=zh_CN,enum=en_GB,enum=bs_BA,enum=bg_BG,enum=cs_CZ,enum=da_DK,enum=de_CH,enum=el_GR,enum=en_US,enum=es_ES,enum=fi_FI,enum=fr_FR,enum=hi_IN,enum=hr_HR,enum=hu_HU,enum=hy,enum=id_ID,enum=it_IT,enum=ko_KR,enum=lv_LV,enum=ms_MY,enum=nl_NL,enum=pl_PL,enum=pt_BR,enum=pt_PT,enum=ro_RO,enum=ru_RU,enum=sk_SK,enum=sl_SI,enum=sr_RS,enum=sv_SE,enum=th_TH,enum=tr_TR,enum=uk_UA,enum=vi_VN,enum=zh_CN,enum=zh_TW"`
 	// Specifies the categories.
 	Categories *[]string `yaml:"categories" jsonschema:"enum=Administration,enum=SEOOptimierung,enum=Bonitaetsprüfung,enum=Rechtssicherheit,enum=Auswertung,enum=KommentarFeedback,enum=Tracking,enum=Integration,enum=PreissuchmaschinenPortale,enum=Warenwirtschaft,enum=Versand,enum=Bezahlung,enum=StorefrontDetailanpassungen,enum=Sprache,enum=Suche,enum=HeaderFooter,enum=Detailseite,enum=MenueKategorien,enum=Bestellprozess,enum=KundenkontoPersonalisierung,enum=Sonderfunktionen,enum=Themes,enum=Branche,enum=Home+Furnishings,enum=FashionBekleidung,enum=GartenNatur,enum=KosmetikGesundheit,enum=EssenTrinken,enum=KinderPartyGeschenke,enum=SportLifestyleReisen,enum=Bauhaus,enum=Elektronik,enum=Geraete,enum=Heimkueche,enum=Hobby,enum=Kueche,enum=Lebensmittel,enum=Medizin,enum=Mode,enum=Musik,enum=Spiel,enum=Technik,enum=Umweltschutz,enum=Wohnen,enum=Zubehoer"`
 	// Specifies the type of the extension.
@@ -131,7 +131,7 @@ type Translatable interface {
 }
 
 type ConfigTranslated[T Translatable] struct {
-	German  *T `yaml:"de,omitempty"`
+	Chinese *T `yaml:"zh,omitempty"`
 	English *T `yaml:"en,omitempty"`
 }
 
@@ -152,12 +152,12 @@ type ConfigStoreImage struct {
 }
 
 type ConfigStoreImageActivate struct {
-	German  bool `yaml:"de"`
+	Chinese bool `yaml:"zh"`
 	English bool `yaml:"en"`
 }
 
 type ConfigStoreImagePreview struct {
-	German  bool `yaml:"de"`
+	Chinese bool `yaml:"zh"`
 	English bool `yaml:"en"`
 }
 
@@ -290,7 +290,7 @@ func validateExtensionConfig(config *Config) error {
 		return fmt.Errorf("store.info.tags.en can contain maximal 5 items")
 	}
 
-	if config.Store.Tags.German != nil && len(*config.Store.Tags.German) > 5 {
+	if config.Store.Tags.Chinese != nil && len(*config.Store.Tags.Chinese) > 5 {
 		return fmt.Errorf("store.info.tags.de can contain maximal 5 items")
 	}
 
@@ -298,7 +298,7 @@ func validateExtensionConfig(config *Config) error {
 		return fmt.Errorf("store.info.videos.en can contain maximal 2 items")
 	}
 
-	if config.Store.Videos.German != nil && len(*config.Store.Videos.German) > 2 {
+	if config.Store.Videos.Chinese != nil && len(*config.Store.Videos.Chinese) > 2 {
 		return fmt.Errorf("store.info.videos.de can contain maximal 2 items")
 	}
 
