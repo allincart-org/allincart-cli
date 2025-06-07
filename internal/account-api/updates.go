@@ -28,7 +28,7 @@ type UpdateCheckExtensionCompatibility struct {
 }
 
 func GetFutureExtensionUpdates(ctx context.Context, currentVersion string, futureVersion string, extensions []UpdateCheckExtension) ([]UpdateCheckExtensionCompatibility, error) {
-	req, err := http.NewRequestWithContext(ctx, http.MethodPost, "https://api.allincart.net/swplatform/autoupdate", nil)
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, "https://allincart.net/api/swplatform/autoupdate", nil)
 	if err != nil {
 		return nil, err
 	}

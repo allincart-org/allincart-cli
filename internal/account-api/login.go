@@ -11,7 +11,7 @@ import (
 	"github.com/allincart-org/allincart-cli/logging"
 )
 
-const ApiUrl = "https://api.allincart.net"
+const ApiUrl = "https://allincart.net/api"
 
 type AccountConfig interface {
 	GetAccountEmail() string
