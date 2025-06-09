@@ -19,7 +19,7 @@ updates:
     groups:
       all:
         patterns:
-          - '*'  
+          - '*'
 
   - package-ecosystem: "composer"
     directory: "/internal/verifier/php"
