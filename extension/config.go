@@ -123,7 +123,8 @@ type ConfigStore struct {
 	// Specifies images for the extension in the store.
 	Images *[]ConfigStoreImage `yaml:"images,omitempty"`
 	// Specifies the directory where the images are located.
-	ImageDirectory *string `yaml:"image_directory,omitempty"`
+	ImageDirectory *string   `yaml:"image_directory,omitempty"`
+	Variants       []float64 `yaml:"variants"`
 }
 
 type Translatable interface {

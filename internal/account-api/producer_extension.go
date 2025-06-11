@@ -396,7 +396,7 @@ func (list SoftwareVersionList) FilterOnVersion(constriant *version.Constraints)
 			continue
 		}
 
-		v, err := version.NewVersion(swVersion.Name)
+		v, err := version.NewVersion(swVersion.Version)
 		if err != nil {
 			continue
 		}
@@ -417,13 +417,13 @@ func (list SoftwareVersionList) FilterOnVersionStringList(constriant *version.Co
 			continue
 		}
 
-		v, err := version.NewVersion(swVersion.Name)
+		v, err := version.NewVersion(swVersion.Version)
 		if err != nil {
 			continue
 		}
 
 		if constriant.Check(v) {
-			newList = append(newList, swVersion.Name)
+			newList = append(newList, swVersion.Version)
 		}
 	}
 

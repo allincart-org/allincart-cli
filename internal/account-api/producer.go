@@ -204,8 +204,9 @@ type Extension struct {
 	Status                              struct {
 		Name string `json:"name"`
 	} `json:"status"`
-	IconURL                                string `json:"iconUrl"`
-	IsCompatibleWithLatestAllincartVersion bool   `json:"isCompatibleWithLatestAllincartVersion"`
+	IconURL                                string    `json:"iconUrl"`
+	IsCompatibleWithLatestAllincartVersion bool      `json:"isCompatibleWithLatestAllincartVersion"`
+	Variants                               []float64 `json:"variants"`
 }
 
 type CreateExtensionRequest struct {
@@ -305,7 +306,7 @@ func (e ProducerEndpoint) GetSoftwareVersions(ctx context.Context, generation st
 }
 
 type SoftwareVersion struct {
-	Name       string `json:"name"`
+	Version    string `json:"version"`
 	Selectable bool   `json:"selectable"`
 }
 

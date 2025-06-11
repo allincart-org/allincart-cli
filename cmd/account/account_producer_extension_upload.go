@@ -101,7 +101,7 @@ var accountCompanyProducerExtensionUploadCmd = &cobra.Command{
 			Id:               foundBinary.Id,
 			SoftwareVersions: avaiableVersions.FilterOnVersionStringList(constraint),
 			Changelogs: []account_api.ExtensionUpdateChangelog{
-				{Locale: "de_DE", Text: changelog.Chinese},
+				{Locale: "zh_CN", Text: changelog.Chinese},
 				{Locale: "en_GB", Text: changelog.English},
 			},
 		}
@@ -114,8 +114,9 @@ var accountCompanyProducerExtensionUploadCmd = &cobra.Command{
 		logging.FromContext(cmd.Context()).Infof("Updated changelog. Uploading now the zip to remote")
 
 		err = p.UpdateExtensionBinaryFile(cmd.Context(), ext.Id, foundBinary.Id, path)
+
 		if err != nil {
-			if strings.Contains(err.Error(), "BinariesException-40") {
+			if strings.Contains(err.Error(), "already published") {
 				logging.FromContext(cmd.Context()).Infof("Binary version is already published. Skipping upload")
 				return nil
 			}

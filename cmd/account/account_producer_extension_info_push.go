@@ -188,6 +188,10 @@ func updateStoreInfo(ext *accountApi.Extension, zipExt extension.Extension, cfg 
 		}
 	}
 
+	if cfg.Store.Variants != nil {
+		ext.Variants = cfg.Store.Variants
+	}
+
 	if cfg.Store.AutomaticBugfixVersionCompatibility != nil {
 		ext.AutomaticBugfixVersionCompatibility = *cfg.Store.AutomaticBugfixVersionCompatibility
 	}
