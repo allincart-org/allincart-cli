@@ -102,7 +102,8 @@ func runDefaultValidate(vc *ValidationContext) {
 	name, nameErr := vc.Extension.GetName()
 	_, allincartVersionErr := vc.Extension.GetAllincartVersionConstraint()
 
-	if versionErr != nil {
+	// Skip version validation for AllincartBundle
+	if versionErr != nil && vc.Extension.GetType() != TypeAllincartBundle {
 		vc.AddError("metadata.version", versionErr.Error())
 	}
 
